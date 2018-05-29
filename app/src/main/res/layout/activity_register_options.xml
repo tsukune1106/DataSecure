@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".Login_Options">
+    tools:context=".Register_Options">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/appbar_padding_top"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay" >
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -30,19 +30,18 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp">
 
             <android.support.design.widget.TabItem
-                android:id="@+id/tab_login_password"
+                android:id="@+id/tab_register_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Password" />
+                android:text="Password"/>
 
             <android.support.design.widget.TabItem
-                android:id="@+id/tab_login_fingerprint"
+                android:id="@+id/tab_register_fingerprint"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fingerprint" />
+                android:layout_height="wrap_content" />
 
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>

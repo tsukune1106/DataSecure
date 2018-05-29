@@ -13,5 +13,7 @@ public class Login_Fingerprint extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login_fingerprint, container, false);
         return view;
+
+
     }
 }
