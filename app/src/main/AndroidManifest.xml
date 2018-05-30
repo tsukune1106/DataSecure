@@ -29,10 +29,7 @@
             android:name=".Login_Options"
             android:label="@string/title_activity_login_options"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Register_Options"
-            android:label="@string/title_activity_register_options"
-            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".Register_User"></activity>
     </application>
 
 </manifest>
