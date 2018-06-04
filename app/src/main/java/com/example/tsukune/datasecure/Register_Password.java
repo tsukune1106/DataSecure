@@ -2,8 +2,6 @@ package com.example.tsukune.datasecure;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -13,9 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import org.mindrot.jbcrypt.BCrypt;
-
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Register_Password extends Fragment {
@@ -23,6 +18,7 @@ public class Register_Password extends Fragment {
     private TextInputLayout InputLayout_NewPassword, InputLayout_ConfirmPassword;
     private EditText Input_NewPassword, Input_ConfirmPassword;
     private Button Btn_register_password;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
