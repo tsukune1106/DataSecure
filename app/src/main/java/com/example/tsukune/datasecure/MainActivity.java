@@ -1,7 +1,6 @@
 package com.example.tsukune.datasecure;
 
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         B_password = findViewById(R.id.passwordSubmit);
-        btn_login = (Button) findViewById(R.id.btn_Login);
+        btn_login = findViewById(R.id.btn_Login);
         final EditText passwordText1 = findViewById(R.id.passwordText1);
         final EditText passwordText2 = findViewById(R.id.passwordText2);
         final TextView passwordView = findViewById(R.id.passwordView);
