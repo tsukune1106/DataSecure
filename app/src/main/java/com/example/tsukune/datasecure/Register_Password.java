@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-
 import java.util.regex.Pattern;
 
 public class Register_Password extends Fragment {
