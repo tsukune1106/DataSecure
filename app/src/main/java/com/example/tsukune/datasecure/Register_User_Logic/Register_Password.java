@@ -1,4 +1,4 @@
-package com.example.tsukune.datasecure;
+package com.example.tsukune.datasecure.Register_User_Logic;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.tsukune.datasecure.R;
+
 import java.util.regex.Pattern;
 
 public class Register_Password extends Fragment {

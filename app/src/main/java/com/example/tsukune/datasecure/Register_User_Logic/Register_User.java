@@ -1,9 +1,11 @@
-package com.example.tsukune.datasecure;
+package com.example.tsukune.datasecure.Register_User_Logic;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.tsukune.datasecure.R;
 
 public class Register_User extends AppCompatActivity {
 

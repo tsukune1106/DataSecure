@@ -26,10 +26,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Login_Options"
+            android:name=".Login_Authentication.Login_Options"
             android:label="@string/title_activity_login_options"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Register_User"></activity>
+        <activity android:name=".Register_User_Logic.Register_User"></activity>
     </application>
 
 </manifest>
