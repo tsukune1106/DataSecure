@@ -7,9 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.example.tsukune.datasecure.Register_User_Logic.Register_User;
-
 import org.mindrot.jbcrypt.BCrypt;
 
 public class MainActivity extends AppCompatActivity {

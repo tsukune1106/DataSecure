@@ -7,7 +7,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-public class Password_Storage {
+public class Password_Storage_Function {
 
     private int ivSize = 16;
 

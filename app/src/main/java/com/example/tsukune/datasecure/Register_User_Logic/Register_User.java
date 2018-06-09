@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import com.example.tsukune.datasecure.R;
 
 public class Register_User extends AppCompatActivity {

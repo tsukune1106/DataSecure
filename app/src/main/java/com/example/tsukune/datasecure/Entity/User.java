@@ -6,14 +6,12 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity
 public class User {
+
     @PrimaryKey(autoGenerate = true)
-    private Long id;
+    private int id;
 
     @ColumnInfo(name = "Main_Password")
     private String mainPassword;
-
-    @ColumnInfo(name = "Fingerprint")
-    private String fingerprint;
 
     @ColumnInfo(name = "Password_Storage")
     private String passwordStorage;
@@ -21,12 +19,18 @@ public class User {
     @ColumnInfo(name = "File_Storage")
     private String fileStorage;
 
+    public User(String mainPassword, String passwordStorage, String fileStorage) {
+        this.mainPassword = mainPassword;
+        this.passwordStorage = passwordStorage;
+        this.fileStorage = fileStorage;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Get, Set">
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -36,14 +40,6 @@ public class User {
 
     public void setMainPassword(String mainPassword) {
         this.mainPassword = mainPassword;
-    }
-
-    public String getFingerprint() {
-        return fingerprint;
-    }
-
-    public void setFingerprint(String fingerprint) {
-        this.fingerprint = fingerprint;
     }
 
     public String getPasswordStorage() {

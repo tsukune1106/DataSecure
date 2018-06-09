@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.tsukune.datasecure.R;
 
 public class Register_Fingerprint extends Fragment {
