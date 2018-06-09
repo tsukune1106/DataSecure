@@ -12,9 +12,6 @@ public class User {
     @ColumnInfo(name = "Main_Password")
     private String mainPassword;
 
-    @ColumnInfo(name = "Fingerprint")
-    private String fingerprint;
-
     @ColumnInfo(name = "Password_Storage")
     private String passwordStorage;
 
@@ -36,14 +33,6 @@ public class User {
 
     public void setMainPassword(String mainPassword) {
         this.mainPassword = mainPassword;
-    }
-
-    public String getFingerprint() {
-        return fingerprint;
-    }
-
-    public void setFingerprint(String fingerprint) {
-        this.fingerprint = fingerprint;
     }
 
     public String getPasswordStorage() {
