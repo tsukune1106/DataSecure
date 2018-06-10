@@ -11,7 +11,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.tsukune.datasecure.Entity.User;
+import com.example.tsukune.datasecure.LocalDB.UserDatabase;
 import com.example.tsukune.datasecure.R;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.regex.Pattern;
 
@@ -21,10 +25,13 @@ public class Register_Password extends Fragment {
     private EditText Input_NewPassword, Input_ConfirmPassword;
     private Button Btn_register_password;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register_password, container, false);
+
+        UserDatabase.getInstance(this.getContext());
 
         InputLayout_NewPassword = view.findViewById(R.id.inputLayout_NewPassword);
         InputLayout_ConfirmPassword = view.findViewById(R.id.inputLayout_ConfirmPassword);
@@ -48,9 +55,12 @@ public class Register_Password extends Fragment {
                 }
                 else {
                     Fragment frg = new Register_Fingerprint();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("newPassword", Input_ConfirmPassword.getText().toString());
-                    frg.setArguments(bundle);
+                    String hashedPassword = BCrypt.hashpw(Input_ConfirmPassword.getText().toString(), BCrypt.gensalt(10));
+                    User user = new User(hashedPassword, null, null);
+                    UserDatabase.uInstance.userDao().addUser(user);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("newPassword", Input_ConfirmPassword.getText().toString());
+//                    frg.setArguments(bundle);
                     FragmentManager fm = getFragmentManager();
                     fm.beginTransaction().replace(R.id.fragment_container, frg).addToBackStack(null).commit();
                 }
