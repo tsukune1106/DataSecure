@@ -1,5 +1,6 @@
 package com.example.tsukune.datasecure.LocalDB;
 
+import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -7,6 +8,7 @@ import android.arch.persistence.room.Update;
 import com.example.tsukune.datasecure.Entity.Password_Storage;
 import java.util.List;
 
+@Dao
 public interface PasswordStorageDAO {
 
     @Query ("SELECT * FROM Password_Storage")

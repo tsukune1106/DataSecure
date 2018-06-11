@@ -7,8 +7,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.example.tsukune.datasecure.Entity.User;
+import com.example.tsukune.datasecure.LocalDB.UserDatabase;
 import com.example.tsukune.datasecure.Register_User_Logic.Register_User;
 import org.mindrot.jbcrypt.BCrypt;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        UserDatabase.getInstance(this);
+        List<User> checkUser = UserDatabase.uInstance.userDao().getUser();
+
+        if (checkUser == null) {
+            startActivity(new Intent(this, Register_User.class));
+        }
         B_password = findViewById(R.id.passwordSubmit);
         btn_login = findViewById(R.id.btn_Login);
         final EditText passwordText1 = findViewById(R.id.passwordText1);
