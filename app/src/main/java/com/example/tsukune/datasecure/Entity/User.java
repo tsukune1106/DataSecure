@@ -10,6 +10,9 @@ public class User {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    @ColumnInfo (name = "Username")
+    private String username;
+
     @ColumnInfo(name = "Main_Password")
     private String mainPassword;
 
@@ -19,7 +22,8 @@ public class User {
     @ColumnInfo(name = "File_Storage")
     private String fileStorage;
 
-    public User(String mainPassword, String passwordStorage, String fileStorage) {
+    public User(String username, String mainPassword, String passwordStorage, String fileStorage) {
+        this.username = username;
         this.mainPassword = mainPassword;
         this.passwordStorage = passwordStorage;
         this.fileStorage = fileStorage;
@@ -32,6 +36,14 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getMainPassword() {

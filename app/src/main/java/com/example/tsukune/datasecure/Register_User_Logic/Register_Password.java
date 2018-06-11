@@ -1,7 +1,7 @@
 package com.example.tsukune.datasecure.Register_User_Logic;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -10,19 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.example.tsukune.datasecure.Entity.User;
 import com.example.tsukune.datasecure.LocalDB.UserDatabase;
+import com.example.tsukune.datasecure.MainActivity;
 import com.example.tsukune.datasecure.R;
-
 import org.mindrot.jbcrypt.BCrypt;
-
 import java.util.regex.Pattern;
 
 public class Register_Password extends Fragment {
 
-    private TextInputLayout InputLayout_NewPassword, InputLayout_ConfirmPassword;
-    private EditText Input_NewPassword, Input_ConfirmPassword;
+    private TextInputLayout InputLayout_Username, InputLayout_NewPassword, InputLayout_ConfirmPassword;
+    private EditText Input_NewUsername, Input_NewPassword, Input_ConfirmPassword;
     private Button Btn_register_password;
 
 
@@ -33,8 +31,10 @@ public class Register_Password extends Fragment {
 
         UserDatabase.getInstance(this.getContext());
 
+        InputLayout_Username = view.findViewById(R.id.inputLayout_NewUsername);
         InputLayout_NewPassword = view.findViewById(R.id.inputLayout_NewPassword);
         InputLayout_ConfirmPassword = view.findViewById(R.id.inputLayout_ConfirmPassword);
+        Input_NewUsername = view.findViewById(R.id.input_NewUsername);
         Input_NewPassword = view.findViewById(R.id.input_NewPassword);
         Input_ConfirmPassword = view.findViewById(R.id.input_ConfirmPassword);
         Btn_register_password = view.findViewById(R.id.btn_register_password);
@@ -54,19 +54,19 @@ public class Register_Password extends Fragment {
                     InputLayout_ConfirmPassword.setError("Confirm Password is not the same as New Password");
                 }
                 else {
-                    Fragment frg = new Register_Fingerprint();
                     String hashedPassword = BCrypt.hashpw(Input_ConfirmPassword.getText().toString(), BCrypt.gensalt(10));
-                    User user = new User(hashedPassword, null, null);
+                    User user = new User(Input_NewUsername.getText().toString(), hashedPassword, null, null);
                     UserDatabase.uInstance.userDao().addUser(user);
+                    startActivity(new Intent(getActivity(), MainActivity.class));
+//                    Fragment frg = new Register_Fingerprint();
 //                    Bundle bundle = new Bundle();
 //                    bundle.putString("newPassword", Input_ConfirmPassword.getText().toString());
 //                    frg.setArguments(bundle);
-                    FragmentManager fm = getFragmentManager();
-                    fm.beginTransaction().replace(R.id.fragment_container, frg).addToBackStack(null).commit();
+//                    FragmentManager fm = getFragmentManager();
+//                    fm.beginTransaction().replace(R.id.fragment_container, frg).addToBackStack(null).commit();
                 }
             }
         });
-
         return view;
     }
 
