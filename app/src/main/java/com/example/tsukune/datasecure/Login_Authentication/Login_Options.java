@@ -28,6 +28,7 @@ public class Login_Options extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class Login_Options extends AppCompatActivity {
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
 
-        TabLayout tabLayout = findViewById(R.id.tabs);
+        tabLayout = findViewById(R.id.tabs);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
 
@@ -49,6 +50,8 @@ public class Login_Options extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        setIconForTabs();
     }
 
     @Override
@@ -102,5 +105,15 @@ public class Login_Options extends AppCompatActivity {
         public int getCount() {
             return NumOfTabs;
         }
+    }
+
+    public void setIconForTabs(){
+        int[] tabIcons = {
+                R.mipmap.password_logo,
+                R.mipmap.fingerprint_logo,
+        };
+
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
     }
 }

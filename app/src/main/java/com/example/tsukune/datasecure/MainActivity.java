@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.example.tsukune.datasecure.Entity.User;
 import com.example.tsukune.datasecure.LocalDB.UserDatabase;
+import com.example.tsukune.datasecure.Login_Authentication.Login_Options;
 import com.example.tsukune.datasecure.Register_User_Logic.Register_User;
 import org.mindrot.jbcrypt.BCrypt;
 import java.util.List;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         if (checkUser == null) {
             startActivity(new Intent(this, Register_User.class));
         }
+        startActivity(new Intent(this, Login_Options.class));
+
         B_password = findViewById(R.id.passwordSubmit);
         btn_login = findViewById(R.id.btn_Login);
         final EditText passwordText1 = findViewById(R.id.passwordText1);
