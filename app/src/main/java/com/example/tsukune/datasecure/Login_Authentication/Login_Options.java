@@ -28,7 +28,7 @@ public class Login_Options extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    private TabLayout tabLayout;
+    static TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -15,7 +15,7 @@ public abstract class UserDatabase extends RoomDatabase {
 
     public static UserDatabase getInstance(Context context) {
 
-        if (uInstance != null) {
+        if (uInstance == null) {
             uInstance = Room.databaseBuilder(context, UserDatabase.class, "User_DB").build();
         }
         return uInstance;

@@ -1,5 +1,6 @@
 package com.example.tsukune.datasecure.LocalDB;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -12,6 +13,9 @@ public interface UserDAO {
 
     @Query("SELECT * FROM User")
     List<User> getUser();
+
+    @Query("SELECT COUNT(*) FROM User")
+    int count();
 
     @Insert
     void addUser(User user);

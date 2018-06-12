@@ -17,7 +17,6 @@ public class Login_Password extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login_password, container, false);
-
         UserDatabase.getInstance(this.getContext());
 
         return view;
