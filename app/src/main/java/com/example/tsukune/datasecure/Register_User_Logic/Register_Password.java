@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 
 public class Register_Password extends Fragment {
 
-    private TextInputLayout InputLayout_Username, InputLayout_NewPassword, InputLayout_ConfirmPassword;
+    private TextInputLayout InputLayout_NewUsername, InputLayout_NewPassword, InputLayout_ConfirmPassword;
     private EditText Input_NewUsername, Input_NewPassword, Input_ConfirmPassword;
     private Button Btn_register_password;
 
@@ -31,7 +31,7 @@ public class Register_Password extends Fragment {
 
         UserDatabase.getInstance(this.getContext());
 
-        InputLayout_Username = view.findViewById(R.id.inputLayout_NewUsername);
+        InputLayout_NewUsername = view.findViewById(R.id.inputLayout_NewUsername);
         InputLayout_NewPassword = view.findViewById(R.id.inputLayout_NewPassword);
         InputLayout_ConfirmPassword = view.findViewById(R.id.inputLayout_ConfirmPassword);
         Input_NewUsername = view.findViewById(R.id.input_NewUsername);
@@ -46,6 +46,9 @@ public class Register_Password extends Fragment {
                 InputLayout_NewPassword.setError(null);
                 InputLayout_ConfirmPassword.setError(null);
 
+                if (Input_NewUsername.getText().toString().isEmpty()){
+                    InputLayout_NewUsername.setError("Please enter username");
+                }
                 if(!isValidPassword(Input_NewPassword.getText().toString())) {
                     InputLayout_NewPassword.setError("New Password must contains at least 8 to 12 characters, 1 upper case letter, 1 lower case letter, " +
                             "and 1 number");
