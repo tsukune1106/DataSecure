@@ -1,4 +1,4 @@
-package com.example.tsukune.datasecure.LocalDB;
+package com.example.tsukune.datasecure.UserDB;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
@@ -13,7 +13,7 @@ public abstract class UserDatabase extends RoomDatabase {
 
     public static UserDatabase uInstance;
 
-    public static UserDatabase getInstance(Context context) {
+    public static synchronized UserDatabase getInstance(Context context) {
 
         if (uInstance == null) {
             uInstance = Room.databaseBuilder(context, UserDatabase.class, "User_DB").build();

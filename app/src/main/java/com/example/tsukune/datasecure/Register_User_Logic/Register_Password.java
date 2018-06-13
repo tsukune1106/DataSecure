@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import com.example.tsukune.datasecure.Entity.User;
-import com.example.tsukune.datasecure.LocalDB.UserDatabase;
+import com.example.tsukune.datasecure.UserDB.UserDatabase;
 import com.example.tsukune.datasecure.MainActivity;
 import com.example.tsukune.datasecure.R;
 import org.mindrot.jbcrypt.BCrypt;

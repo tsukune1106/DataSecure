@@ -1,35 +1,36 @@
 package com.example.tsukune.datasecure;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import com.example.tsukune.datasecure.Entity.User;
-import com.example.tsukune.datasecure.LocalDB.UserDatabase;
 import com.example.tsukune.datasecure.Login_Authentication.Login_Options;
 import com.example.tsukune.datasecure.Register_User_Logic.Register_User;
-import org.mindrot.jbcrypt.BCrypt;
+import com.example.tsukune.datasecure.UserDB.UserDatabase;
+import com.example.tsukune.datasecure.UserDB.UserViewModel;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
-    private List<User> checkUser;
+    private LiveData<List<User>> checkUser;
 
-    @Nullable
+    private UserViewModel userViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         progressBar = findViewById(R.id.progressBar);
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+
         UserDatabase.getInstance(this);
-        checkUser = UserDatabase.uInstance.userDao().getUser();
+        checkUser = UserDatabase.uInstance.userDao().getAllUser();
 
         startWork();
 //        new Thread(new Runnable() {
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void startWork() {
 
-        if (checkUser.isEmpty()) {
+        if (checkUser==null) {
             startActivity(new Intent(this, Register_User.class));
         }
 

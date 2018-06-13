@@ -1,4 +1,4 @@
-package com.example.tsukune.datasecure.LocalDB;
+package com.example.tsukune.datasecure.UserDB;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -12,7 +12,7 @@ import java.util.List;
 public interface UserDAO {
 
     @Query("SELECT * FROM User")
-    List<User> getUser();
+    LiveData<List<User>> getAllUser();
 
     @Query("SELECT COUNT(*) FROM User")
     int count();
