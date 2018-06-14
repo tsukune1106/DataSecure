@@ -70,9 +70,9 @@ public class Register_Password extends Fragment {
                     InputLayout_ConfirmPassword.setError("Invalid Field");
                 }
                 else {
-//                    String hashedPassword = BCrypt.hashpw(Input_ConfirmPassword.getText().toString(), BCrypt.gensalt(10));
-//                    User user = new User(Input_NewUsername.getText().toString(), hashedPassword, null, null);
-//                    UserDatabase.uInstance.userDao().addUser(user);
+                    String hashedPassword = BCrypt.hashpw(Input_ConfirmPassword.getText().toString(), BCrypt.gensalt(10));
+                    User user = new User(Input_NewUsername.getText().toString(), hashedPassword, null, null);
+                    UserDatabase.uInstance.userDao().addUser(user);
                     startActivity(new Intent(getActivity(), MainActivity.class));
 //                    Fragment frg = new Register_Fingerprint();
 //                    Bundle bundle = new Bundle();
