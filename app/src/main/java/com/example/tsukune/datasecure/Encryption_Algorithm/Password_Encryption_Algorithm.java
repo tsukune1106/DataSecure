@@ -1,4 +1,4 @@
-package com.example.tsukune.datasecure;
+package com.example.tsukune.datasecure.Encryption_Algorithm;
 
 import android.util.Base64;
 import org.mindrot.jbcrypt.BCrypt;
@@ -7,7 +7,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-public class Password_Storage_Function {
+public class Password_Encryption_Algorithm {
 
     private int ivSize = 16;
 

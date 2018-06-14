@@ -1,4 +1,4 @@
-package com.example.tsukune.datasecure.LocalDB;
+package com.example.tsukune.datasecure.PasswordStorageDB;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;

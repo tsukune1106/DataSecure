@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import com.example.tsukune.datasecure.Entity.User;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class UserViewModel extends AndroidViewModel {
     private LiveData<List<User>> mUser;
@@ -23,6 +24,9 @@ public class UserViewModel extends AndroidViewModel {
         return mUser;
     }
 
+    public int getCount() throws ExecutionException, InterruptedException {
+        return userRepository.getCount();
+    }
     public void addUser(User user) {
         userRepository.addUser(user);
     }

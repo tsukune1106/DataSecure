@@ -16,4 +16,9 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="error_register_password" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">15sp</item>
+        <item name="android:color">@color/Red</item>
+    </style>
+
 </resources>

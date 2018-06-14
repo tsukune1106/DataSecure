@@ -15,12 +15,15 @@ public interface UserDAO {
     LiveData<List<User>> getAllUser();
 
     @Query("SELECT COUNT(*) FROM User")
-    int count();
+    int getCount();
 
     @Insert
     void addUser(User user);
 
     @Update
     void updateUser (User user);
+
+    @Query("SELECT * FROM User LIMIT 1")
+    User getAnyUser();
 
 }
