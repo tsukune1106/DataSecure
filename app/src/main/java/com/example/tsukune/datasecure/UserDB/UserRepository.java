@@ -28,20 +28,41 @@ public class  UserRepository {
 //        return uInstance;
 //    }
 
+    public List<User> getUser() throws ExecutionException, InterruptedException {
+        return new getUserAsyncTask(userDAO).execute().get();
+    }
+
     public LiveData<List<User>> getAllUser(){
         return userDAO.getAllUser();
     }
+
     int getCount() throws ExecutionException, InterruptedException {
         int count = userDAO.getCount();
         return new getCountAsyncTask(userDAO).execute(count).get();
     }
-    void addUser(User user) {
+
+    public void addUser(User user) {
         new  insertAsyncTask(userDAO).execute(user);
     }
+
     void updateUser (User user) {
-        userDAO.updateUser(user);
+        new updateAsyncTask(userDAO).execute(user);
     }
 
+    private static class getUserAsyncTask extends AsyncTask<List<User>, Void, List<User>> {
+        private UserDAO mAsyncTaskDAO;
+
+        getUserAsyncTask(UserDAO userDAO) {
+            mAsyncTaskDAO = userDAO;
+        }
+
+        @Override
+        protected List<User> doInBackground(List<User>... lists) {
+            mAsyncTaskDAO.getUser();
+            return null;
+        }
+
+    }
     private static class getCountAsyncTask extends AsyncTask<Integer, Void, Integer> {
         private UserDAO mAsyncTaskDAO;
 
@@ -67,6 +88,21 @@ public class  UserRepository {
         @Override
         protected Void doInBackground(User... users) {
             mAsyncTaskDAO.addUser(users[0]);
+            return null;
+        }
+    }
+
+    private static class updateAsyncTask extends AsyncTask<User, Void, Void> {
+
+        private UserDAO mAsyncTaskDAO;
+
+        public updateAsyncTask(UserDAO mAsyncTaskDAO) {
+            this.mAsyncTaskDAO = mAsyncTaskDAO;
+        }
+
+        @Override
+        protected Void doInBackground(User... users) {
+            mAsyncTaskDAO.updateUser(users[0]);
             return null;
         }
     }

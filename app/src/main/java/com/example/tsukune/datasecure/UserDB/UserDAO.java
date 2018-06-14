@@ -12,6 +12,9 @@ import java.util.List;
 public interface UserDAO {
 
     @Query("SELECT * FROM User")
+    List<User> getUser();
+
+    @Query("SELECT * FROM User")
     LiveData<List<User>> getAllUser();
 
     @Query("SELECT COUNT(*) FROM User")
@@ -22,8 +25,5 @@ public interface UserDAO {
 
     @Update
     void updateUser (User user);
-
-    @Query("SELECT * FROM User LIMIT 1")
-    User getAnyUser();
 
 }

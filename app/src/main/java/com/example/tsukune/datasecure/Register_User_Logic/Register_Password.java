@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.example.tsukune.datasecure.Entity.User;
 import com.example.tsukune.datasecure.UserDB.UserDatabase;
 import com.example.tsukune.datasecure.MainActivity;
 import com.example.tsukune.datasecure.R;
+import com.example.tsukune.datasecure.UserDB.UserRepository;
 import com.example.tsukune.datasecure.UserDB.UserViewModel;
 import org.mindrot.jbcrypt.BCrypt;
 import java.util.regex.Pattern;
@@ -29,14 +31,13 @@ public class Register_Password extends Fragment {
     private EditText Input_NewUsername, Input_NewPassword, Input_ConfirmPassword;
     private TextView TextView_Register;
     private Button Btn_register_password;
-    private UserViewModel userViewModel;
+    private UserRepository userRepository;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register_password, container, false);
 
-        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         InputLayout_NewUsername = view.findViewById(R.id.inputLayout_NewUsername);
         InputLayout_NewPassword = view.findViewById(R.id.inputLayout_NewPassword);
         InputLayout_ConfirmPassword = view.findViewById(R.id.inputLayout_ConfirmPassword);
@@ -70,9 +71,11 @@ public class Register_Password extends Fragment {
                     InputLayout_ConfirmPassword.setError("Invalid Field");
                 }
                 else {
-//                    String hashedPassword = BCrypt.hashpw(Input_ConfirmPassword.getText().toString(), BCrypt.gensalt(10));
-//                    User user = new User(Input_NewUsername.getText().toString(), hashedPassword, null, null);
-//                    UserDatabase.uInstance.userDao().addUser(user);
+                    String hashedPassword = BCrypt.hashpw(Input_ConfirmPassword.getText().toString(), BCrypt.gensalt(10));
+                    User user = new User(Input_NewUsername.getText().toString(), hashedPassword, null, null);
+                    userRepository.addUser(user);
+                    Log.i("Username", user.getUsername());
+                    Log.i("Password", user.getMainPassword());
                     startActivity(new Intent(getActivity(), MainActivity.class));
 //                    Fragment frg = new Register_Fingerprint();
 //                    Bundle bundle = new Bundle();

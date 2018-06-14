@@ -1,5 +1,6 @@
 package com.example.tsukune.datasecure.PasswordStorageDB;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -12,10 +13,10 @@ import java.util.List;
 public interface PasswordStorageDAO {
 
     @Query ("SELECT * FROM Password_Storage")
-    List<Password_Storage> getUser();
+    LiveData<List<Password_Storage>> getAllPS();
 
     @Query ("SELECT * FROM Password_Storage WHERE PS_Name = :ps_name")
-    Password_Storage findByName (String ps_name);
+    Password_Storage findByPSName (String ps_name);
 
     @Insert
     void addPS(Password_Storage ps);

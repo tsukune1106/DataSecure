@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class UserViewModel extends AndroidViewModel {
+
     private LiveData<List<User>> mUser;
     private UserRepository userRepository;
 
@@ -27,7 +28,12 @@ public class UserViewModel extends AndroidViewModel {
     public int getCount() throws ExecutionException, InterruptedException {
         return userRepository.getCount();
     }
+
     public void addUser(User user) {
         userRepository.addUser(user);
+    }
+
+    public void updateUser(User user) {
+        userRepository.updateUser(user);
     }
 }
