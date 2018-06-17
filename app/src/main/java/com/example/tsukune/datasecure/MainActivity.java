@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 
+
         new Thread(new Runnable() {
             @Override
             public void run() {

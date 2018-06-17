@@ -8,6 +8,7 @@
     <uses-feature
         android:name="android.hardware.fingerprint"
         android:required="false" />
+
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <application
@@ -20,25 +21,28 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Login_Authentication.Login_Options"
             android:label="@string/title_activity_login_options"
-            android:theme="@style/AppTheme" >
-
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Register_User_Logic.Register_User">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Menu"></activity>
     </application>
 
 </manifest>
