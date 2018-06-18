@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="375dp"
+    android:layout_height="250dp"
+    android:layout_gravity="center"
+    android:background="#333333"
+    tools:context=".PS_Menu.Add_PS_Menu">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/inputLayout_addPS_Name"
+        android:layout_width="334dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
+        android:gravity="center"
+        android:textColorHint="@color/White"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/editText_addPS_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:hint="Name" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/inputLayout_addPS_Password"
+        android:layout_width="334dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textColorHint="@color/White"
+        app:layout_constraintEnd_toEndOf="@+id/inputLayout_addPS_Name"
+        app:layout_constraintStart_toStartOf="@+id/inputLayout_addPS_Name"
+        app:layout_constraintTop_toBottomOf="@+id/inputLayout_addPS_Name">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/editText_addPS_Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/White"
+            android:hint="Password" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_save_PS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="@+id/inputLayout_addPS_Password"
+        app:layout_constraintStart_toStartOf="@+id/inputLayout_addPS_Password"
+        app:layout_constraintTop_toBottomOf="@+id/inputLayout_addPS_Password" />
+
+    <Button
+        android:id="@+id/btn_exit_addPS"
+        android:layout_width="29dp"
+        android:layout_height="29dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/exit_rounded_button"
+        android:text="X"
+        android:textColor="@color/White"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

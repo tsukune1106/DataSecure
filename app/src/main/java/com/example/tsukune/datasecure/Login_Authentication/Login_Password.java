@@ -65,13 +65,13 @@ public class Login_Password extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(loginPassword.isEmpty() || !BCrypt.checkpw(loginPassword, mainPassword)) {
-                            inputLayout_login_password.setError("Please enter valid password");
-                        }
-                        else {
-                            editText_Login_Password.setText(null);
-                            startActivity(new Intent(getActivity(), Menu.class));
-                        }
+                    if(loginPassword.isEmpty() || !BCrypt.checkpw(loginPassword, mainPassword)) {
+                        inputLayout_login_password.setError("Please enter valid password");
+                    }
+                    else {
+                        editText_Login_Password.setText(null);
+                        startActivity(new Intent(getActivity(), Menu.class));
+                    }
                     }
                 });
             }
