@@ -40,4 +40,5 @@ dependencies {
     implementation files('libs/jbcrypt-0.4.jar')
     implementation "android.arch.lifecycle:extensions:1.1.0"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.0"
+    implementation "com.android.support:recyclerview-v7:27.1.1"
 }
