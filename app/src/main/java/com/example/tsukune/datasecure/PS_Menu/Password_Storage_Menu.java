@@ -51,6 +51,7 @@ public class Password_Storage_Menu extends AppCompatActivity {
             }
         });
 
+        //test
         btn_exit_addPS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
