@@ -1,24 +1,20 @@
 package com.example.tsukune.datasecure.Register_User_Logic;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import com.example.tsukune.datasecure.Entity.User;
-import com.example.tsukune.datasecure.MainActivity;
 import com.example.tsukune.datasecure.R;
 import com.example.tsukune.datasecure.UserDB.UserViewModel;
-import org.mindrot.jbcrypt.BCrypt;
 import java.util.regex.Pattern;
 
 public class Register_Password extends Fragment {
@@ -59,27 +55,22 @@ public class Register_Password extends Fragment {
                 InputLayout_ConfirmPassword.setError(null);
 
                 if (Input_NewUsername.getText().toString().isEmpty()){
-                    InputLayout_NewUsername.setError("Invalid Field");
+                    InputLayout_NewUsername.setError("Invalid Field!");
                 }
                 if(!isValidPassword(Input_NewPassword.getText().toString()) && Input_NewPassword.getText().toString().isEmpty()) {
-                    InputLayout_NewPassword.setError("Invalid Field");
+                    InputLayout_NewPassword.setError("Invalid Field!");
                 }
                 else if (!Input_ConfirmPassword.getText().toString().equals(Input_NewPassword.getText().toString())) {
-                    InputLayout_ConfirmPassword.setError("Invalid Field");
+                    InputLayout_ConfirmPassword.setError("Invalid Field!");
                 }
                 else {
-                    String hashedPassword = BCrypt.hashpw(Input_ConfirmPassword.getText().toString(), BCrypt.gensalt(10));
-                    User user = new User(Input_NewUsername.getText().toString(), hashedPassword, null, null);
-                    userViewModel.addUser(user);
-                    Log.i("Username", user.getUsername());
-                    Log.i("Password", user.getMainPassword());
-                    startActivity(new Intent(getActivity(), MainActivity.class));
-//                    Fragment frg = new Register_Fingerprint();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("newPassword", Input_ConfirmPassword.getText().toString());
-//                    frg.setArguments(bundle);
-//                    FragmentManager fm = getFragmentManager();
-//                    fm.beginTransaction().replace(R.id.fragment_container, frg).addToBackStack(null).commit();
+                    Fragment frg = new Register_PS();
+                    Bundle b = new Bundle();
+                    b.putString("newUsername", Input_NewUsername.getText().toString());
+                    b.putString("newPassword", Input_ConfirmPassword.getText().toString());
+                    frg.setArguments(b);
+                    FragmentManager fm = getFragmentManager();
+                    fm.beginTransaction().replace(R.id.fragment_container, frg).addToBackStack(null).commit();
                 }
             }
         });

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="385dp"
-    android:layout_height="250dp"
+    android:layout_height="300dp"
     android:layout_gravity="center"
     android:background="#333333"
     tools:context=".PS_Menu.Add_PS_Menu">
@@ -17,6 +17,7 @@
         android:layout_marginTop="44dp"
         android:gravity="center"
         android:textColorHint="@color/White"
+        app:hintTextAppearance="@style/hint_register_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,7 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
-            android:hint="Name" />
+            android:hint="Name"
+            android:textColor="@color/White" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -36,6 +38,7 @@
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:textColorHint="@color/White"
+        app:hintTextAppearance="@style/hint_register_password"
         app:layout_constraintEnd_toEndOf="@+id/inputLayout_addPS_Name"
         app:layout_constraintStart_toStartOf="@+id/inputLayout_addPS_Name"
         app:layout_constraintTop_toBottomOf="@+id/inputLayout_addPS_Name">
@@ -45,18 +48,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
-            android:hint="Password" />
+            android:hint="Password"
+            android:textColor="@color/White" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/btn_save_PS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="24dp"
         android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/inputLayout_addPS_Password"
         app:layout_constraintStart_toStartOf="@+id/inputLayout_addPS_Password"
-        app:layout_constraintTop_toBottomOf="@+id/inputLayout_addPS_Password" />
+        app:layout_constraintTop_toBottomOf="@+id/inputLayout_addPS_Password"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btn_exit_addPS"
@@ -68,16 +75,6 @@
         android:text="X"
         android:textColor="@color/White"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

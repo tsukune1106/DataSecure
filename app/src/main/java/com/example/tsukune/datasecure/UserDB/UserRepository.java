@@ -10,7 +10,6 @@ import java.util.concurrent.ExecutionException;
 public class  UserRepository {
 
     private UserDAO userDAO;
-//    private static UserRepository uInstance;
     private UserDatabase userDB;
     private LiveData<List<User>> mUser;
 
@@ -18,18 +17,6 @@ public class  UserRepository {
         userDB = UserDatabase.getInstance(application);
         userDAO = userDB.userDao();
         mUser = userDAO.getAllUser();
-    }
-
-
-//    public static UserRepository getInstance (UserDAO userDAO) {
-//        if (uInstance == null) {
-//            uInstance = new UserRepository(userDAO);
-//        }
-//        return uInstance;
-//    }
-
-    public List<User> getUser() throws ExecutionException, InterruptedException {
-        return new getUserAsyncTask(userDAO).execute().get();
     }
 
     public LiveData<List<User>> getAllUser(){
@@ -49,20 +36,6 @@ public class  UserRepository {
         new updateAsyncTask(userDAO).execute(user);
     }
 
-    private static class getUserAsyncTask extends AsyncTask<List<User>, Void, List<User>> {
-        private UserDAO mAsyncTaskDAO;
-
-        getUserAsyncTask(UserDAO userDAO) {
-            mAsyncTaskDAO = userDAO;
-        }
-
-        @Override
-        protected List<User> doInBackground(List<User>... lists) {
-            mAsyncTaskDAO.getUser();
-            return null;
-        }
-
-    }
     private static class getCountAsyncTask extends AsyncTask<Integer, Void, Integer> {
         private UserDAO mAsyncTaskDAO;
 

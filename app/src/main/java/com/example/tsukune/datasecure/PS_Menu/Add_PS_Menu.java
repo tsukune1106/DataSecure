@@ -31,14 +31,13 @@ public class Add_PS_Menu extends AppCompatActivity {
         et_psPassword = findViewById(R.id.editText_addPS_Password);
         btn_save_PS = findViewById(R.id.btn_save_PS);
         btn_exit_addPS = findViewById(R.id.btn_exit_addPS);
-        editText = findViewById(R.id.textView2);
 
         btn_save_PS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(Add_PS_Menu.this, "This is my Toast message!",
                         Toast.LENGTH_LONG).show();
-                editText.setText("Fk this shit");
+                editText.setText("");
                 Log.i("Test", et_psName.getText().toString());
 
             }
