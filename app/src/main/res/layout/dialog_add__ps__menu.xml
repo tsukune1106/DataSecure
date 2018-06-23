@@ -2,8 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="385dp"
-    android:layout_height="300dp"
+    android:layout_width="375dp"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="#333333"
     tools:context=".PS_Menu.Add_PS_Menu">
@@ -11,7 +11,7 @@
     <android.support.design.widget.TextInputLayout
         android:id="@+id/inputLayout_addPS_Name"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="62dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="44dp"
@@ -28,6 +28,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
             android:hint="Name"
+            android:maxLines="1"
+            android:singleLine="true"
             android:textColor="@color/White" />
     </android.support.design.widget.TextInputLayout>
 
@@ -49,7 +51,9 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
             android:hint="Password"
-            android:textColor="@color/White" />
+            android:textColor="@color/White"
+            android:maxLines="1"
+            android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
@@ -69,12 +73,18 @@
         android:id="@+id/btn_exit_addPS"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/exit_rounded_button"
         android:text="X"
         android:textColor="@color/White"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

@@ -30,25 +30,32 @@
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Register_User_Logic.Register_User">
+        <activity android:name=".Register_User_Logic.Register_User"
+            android:label="register_user">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Menu" />
-        <activity android:name=".PS_Menu.Password_Storage_Menu">
+        <activity android:name=".PS_Menu.Password_Storage_Menu"
+            android:label="ps_menu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".PS_Menu.Add_PS_Menu"
-            android:theme="@style/AppTheme.CustomTheme">
+        <activity android:name=".EditUser.Settings"
+            android:label="settings">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

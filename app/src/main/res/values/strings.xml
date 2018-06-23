@@ -5,11 +5,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_login_options">login_options</string>
     <string name="fingerprint_guide">Please place your fingerprint on the scanner</string>
-    <string name="swipe_left">Swipe Left for Password Authentication</string>
     <string name="swipe_right">Swipe Right for "\n"Fingerprint Authentication</string>
-    <string name="title_activity_password_storage">PasswordStorage</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

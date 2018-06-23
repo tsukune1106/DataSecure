@@ -10,9 +10,9 @@ import java.util.List;
 
 @Dao
 public interface UserDAO {
-
-    @Query("SELECT * FROM User")
-    List<User> getUser();
+//
+//    @Query("SELECT * FROM User")
+//    List<User> getUser();
 
     @Query("SELECT * FROM User")
     LiveData<List<User>> getAllUser();
@@ -26,4 +26,12 @@ public interface UserDAO {
     @Update
     void updateUser (User user);
 
+    @Query("UPDATE User SET Username = :username, Main_Password = :main_Password  WHERE id = :uid")
+    void updateUserLogin(int uid, String username, String main_Password);
+
+    @Query("UPDATE User SET Password_Storage = :ps_Password  WHERE id = :uid")
+    void updatePS(int uid, String ps_Password);
+
+    @Query("UPDATE User SET File_Storage = :fs_Password WHERE id = :uid")
+    void updateFS(int uid, String fs_Password);
 }

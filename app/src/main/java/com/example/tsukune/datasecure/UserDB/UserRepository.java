@@ -2,8 +2,12 @@ package com.example.tsukune.datasecure.UserDB;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.arch.persistence.room.Update;
 import android.os.AsyncTask;
 import com.example.tsukune.datasecure.Entity.User;
+
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -19,11 +23,23 @@ public class  UserRepository {
         mUser = userDAO.getAllUser();
     }
 
+    public static class UpdateUserLogin {
+        int id;
+        String username;
+        String password;
+
+        public UpdateUserLogin(int id, String username, String password) {
+            this.id = id;
+            this.username = username;
+            this.password = password;
+        }
+    }
+
     public LiveData<List<User>> getAllUser(){
         return userDAO.getAllUser();
     }
 
-    int getCount() throws ExecutionException, InterruptedException {
+    public int getCount() throws ExecutionException, InterruptedException {
         int count = userDAO.getCount();
         return new getCountAsyncTask(userDAO).execute(count).get();
     }
@@ -32,8 +48,12 @@ public class  UserRepository {
         new  insertAsyncTask(userDAO).execute(user);
     }
 
-    void updateUser (User user) {
+    public void updateUser (User user) {
         new updateAsyncTask(userDAO).execute(user);
+    }
+
+    public void updateUserLogin(UpdateUserLogin updateUserLogin) {
+        new updateUserLogin_AsyncTask(userDAO).execute(updateUserLogin);
     }
 
     private static class getCountAsyncTask extends AsyncTask<Integer, Void, Integer> {
@@ -76,6 +96,27 @@ public class  UserRepository {
         @Override
         protected Void doInBackground(User... users) {
             mAsyncTaskDAO.updateUser(users[0]);
+            return null;
+        }
+    }
+
+    private static class updateUserLogin_AsyncTask extends AsyncTask<UpdateUserLogin, Void, Void> {
+
+        private UserDAO mAsyncTaskDAO;
+        private int id;
+        private String username, password, hashedPassword;
+
+        public updateUserLogin_AsyncTask(UserDAO mAsyncTaskDAO) {
+            this.mAsyncTaskDAO = mAsyncTaskDAO;
+        }
+
+        @Override
+        protected Void doInBackground(UpdateUserLogin... params) {
+            id = params[0].id;
+            username = params[0].username;
+            password = params[0].password;
+            hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
+            mAsyncTaskDAO.updateUserLogin(id, username, hashedPassword);
             return null;
         }
     }

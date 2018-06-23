@@ -89,7 +89,9 @@ public class Register_FS extends Fragment {
                     Log.i("New FS Password", hashedFSPassword);
                     User user = new User(newUsername, hashedNewPassword, hashedPSPassword, hashedFSPassword);
                     userViewModel.addUser(user);
-                    startActivity(new Intent(getActivity(), MainActivity.class));
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
                 }
             }
         });
@@ -116,7 +118,7 @@ public class Register_FS extends Fragment {
             hashedFSPassword = BCrypt.hashpw(newFSPassword, BCrypt.gensalt(10));
             strList.add(hashedNewPassword);
             strList.add(hashedPSPassword);
-            strList.add(hashedPSPassword);
+            strList.add(hashedFSPassword);
             return strList;
         }
     }

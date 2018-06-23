@@ -1,95 +1,67 @@
 package com.example.tsukune.datasecure.PS_Menu;
 
-import android.app.Dialog;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 import com.example.tsukune.datasecure.Entity.Password_Storage;
+import com.example.tsukune.datasecure.Entity.User;
 import com.example.tsukune.datasecure.PasswordStorageDB.PasswordStorageViewModel;
 import com.example.tsukune.datasecure.R;
+import com.example.tsukune.datasecure.UserDB.UserRepository;
+import com.example.tsukune.datasecure.UserDB.UserViewModel;
+import java.util.List;
 
 public class Password_Storage_Menu extends AppCompatActivity {
 
+    private UserRepository userRepository;
+    private UserViewModel userViewModel;
     private PasswordStorageViewModel psViewModel;
     private FloatingActionButton fab_AddPS;
-    private Dialog dialog_AddPS, dialog_EditPS;
+    private User user;
 
     //for dialog_AddPS
-    private TextInputLayout til_addPS_Name, til_addPS_Password;
-    private EditText et_addPS_Name, et_addPS_Password;
-    private Button btn_save_PS, btn_exit_addPS;
+    private Add_PS_Menu dialog_AddPS;
+    public static String encryptionKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password__storage__menu);
 
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         psViewModel = ViewModelProviders.of(this).get(PasswordStorageViewModel.class);
 
-        //for PS_Menu
-        dialog_AddPS = new Dialog(this);
-        dialog_AddPS.setContentView(R.layout.activity_add__ps__menu);
-        dialog_EditPS = new Dialog(this);
         fab_AddPS = findViewById(R.id.btn_AddPS);
 
-        //for dialog_AddPS
-        til_addPS_Name = dialog_AddPS.findViewById(R.id.inputLayout_addPS_Name);
-        til_addPS_Password = dialog_AddPS.findViewById(R.id.inputLayout_addPS_Password);
-        et_addPS_Name = dialog_AddPS.findViewById(R.id.editText_addPS_Name);
-        et_addPS_Password = dialog_AddPS.findViewById(R.id.editText_addPS_Password);
-        btn_save_PS = dialog_AddPS.findViewById(R.id.btn_save_PS);
-        btn_exit_addPS = dialog_AddPS.findViewById(R.id.btn_exit_addPS);
+        userViewModel.getAllUser().observe(this, new Observer<List<User>>() {
+            @Override
+            public void onChanged(@Nullable List<User> users) {
+                user = users.get(0);
+                Log.i("username", user.getUsername());
+                encryptionKey = user.getUsername();
+            }
+        });
 
-        //for PS_Menu
         fab_AddPS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                til_addPS_Name.setError(null);
-                til_addPS_Password.setError(null);
-                et_addPS_Name.setText(null);
-                et_addPS_Password.setText(null);
-                dialog_AddPS.show();
+                dialog_AddPS = new Add_PS_Menu();
+                dialog_AddPS.show(getFragmentManager(), "Add_PS_Menu");
             }
         });
-
-        //for dialog_AddPS
-        btn_save_PS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                til_addPS_Name.setError(null);
-                til_addPS_Password.setError(null);
-
-                if (et_addPS_Name.getText().toString().isEmpty()) {
-                    til_addPS_Name.setError("This field cannot be left empty!");
-                }
-                if (et_addPS_Password.getText().toString().isEmpty()) {
-                    til_addPS_Password.setError("This field cannot be left empty!");
-                }
-                else {
-                    Password_Storage ps = new Password_Storage(et_addPS_Name.getText().toString(), et_addPS_Password.getText().toString());
-                    psViewModel.addPS(ps);
-
-                    Toast.makeText(dialog_AddPS.getContext(), "New Password Storage Added!",
-                            Toast.LENGTH_LONG).show();
-                    dialog_AddPS.dismiss();
-                }
-
-            }
-        });
-
-        btn_exit_addPS.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog_AddPS.dismiss();
-            }
-        });
-
-        //for dialog_EditPS
     }
+
+    public void Add_New_PS (String name, String password){
+        Password_Storage ps = new Password_Storage(name, password);
+        Log.i("PS name", ps.getPs_Name());
+        Log.i("PS pw", ps.getPs_Password());
+//        psViewModel.addPS(ps);
+    }
+
+
 }

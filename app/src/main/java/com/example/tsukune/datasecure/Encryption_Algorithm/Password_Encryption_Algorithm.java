@@ -1,10 +1,17 @@
 package com.example.tsukune.datasecure.Encryption_Algorithm;
 
+import android.os.AsyncTask;
 import android.util.Base64;
-import org.mindrot.jbcrypt.BCrypt;
 import java.security.SecureRandom;
+import java.security.spec.KeySpec;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class Password_Encryption_Algorithm {
@@ -13,22 +20,24 @@ public class Password_Encryption_Algorithm {
 
     //encryption key = password to unlock the storage
 
-    public String Encrypt(String key, String password) throws Exception {
+    public String Encrypt(String key, String str) throws Exception {
 
         //Generate random IV
-        byte[] ivBytes = new byte[ivSize];
+        byte[] iv = new byte[ivSize];
         SecureRandom rng = new SecureRandom();
-        rng.nextBytes(ivBytes);
-        IvParameterSpec iv = new IvParameterSpec(ivBytes);
+        rng.nextBytes(iv);
+        IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
 
-        //Hash Encryption Key
-        String hashedKey = BCrypt.hashpw(key, BCrypt.gensalt(10));
-        SecretKeySpec secKeySpec = new SecretKeySpec(hashedKey.getBytes("UTF-8"), "AES");
+        byte[] salt = key.getBytes();
+        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+        KeySpec spec = new PBEKeySpec(key.toCharArray(), salt, 65536, 256);
+        SecretKey tmp = factory.generateSecret(spec);
+        SecretKey secret = new SecretKeySpec(tmp.getEncoded(), "AES");
 
         //Encrypt
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
-        cipher.init(Cipher.ENCRYPT_MODE, secKeySpec, iv);
-        byte[] encrypted = cipher.doFinal(password.getBytes());
+        cipher.init(Cipher.ENCRYPT_MODE, secret, ivParameterSpec);
+        byte[] encrypted = cipher.doFinal(str.getBytes());
 
         //Combine IV with encrypted password
         byte[] combined = new byte[ivSize + encrypted.length];
@@ -38,24 +47,59 @@ public class Password_Encryption_Algorithm {
         return Base64.encodeToString(combined, Base64.DEFAULT);
     }
 
-    public String Decrypt(String key, String EncryptedPassword) throws Exception {
+    public String Decrypt(String key, String encryptedStr) throws Exception {
 
         //Extract IV
-        byte[] ivBytes = new byte[ivSize];
-        System.arraycopy(EncryptedPassword, 0, ivBytes, 0, ivSize);
-        IvParameterSpec iv = new IvParameterSpec(ivBytes);
+        byte[] iv = new byte[ivSize];
+        byte[] encryptedStrBytes = encryptedStr.getBytes();
+        System.arraycopy(encryptedStrBytes, 0, iv, 0, ivSize);
+        IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
 
-        //Extract encrypted password
-        int encryptedSize = EncryptedPassword.length() - ivSize;
-        byte[] encryptedBytes = new byte[encryptedSize];
-        System.arraycopy(EncryptedPassword, ivSize, encryptedBytes, 0, encryptedSize);
-
-        SecretKeySpec secKeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+        byte[] salt = key.getBytes();
+        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+        KeySpec spec = new PBEKeySpec(key.toCharArray(), salt, 65536, 256);
+        SecretKey tmp = factory.generateSecret(spec);
+        SecretKey secret = new SecretKeySpec(tmp.getEncoded(), "AES");
 
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
-        cipher.init(Cipher.DECRYPT_MODE, secKeySpec, iv);
+        cipher.init(Cipher.DECRYPT_MODE, secret, ivParameterSpec);
 
-        byte[] original = cipher.doFinal(Base64.decode(EncryptedPassword, Base64.DEFAULT));
+        byte[] decryptStr = cipher.doFinal(Base64.decode(encryptedStrBytes, Base64.DEFAULT));
+        int length = decryptStr.length - ivSize;
+        byte[] original = new byte[length];
+        System.arraycopy(decryptStr, ivSize, original, 0, length);
         return new String(original);
+    }
+
+    public List<String> Ein_PS_Encryption (String encryptionKey, String ps_Name, String ps_Password) throws ExecutionException, InterruptedException {
+        return new Ein_PS_Encryption_AsyncTask(encryptionKey, ps_Name, ps_Password).execute().get();
+    }
+
+    private static class Ein_PS_Encryption_AsyncTask extends AsyncTask<List<String>, Void, List<String>> {
+
+        private String encryptionKey, PS_Name, PS_Password;
+        String Encrypted_PS_Name, Encrypted_PS_Password;
+        private List<String> strList;
+        Password_Encryption_Algorithm pea = new Password_Encryption_Algorithm();
+
+        public Ein_PS_Encryption_AsyncTask(String encryptionKey, String PS_Name, String PS_Password) {
+            this.encryptionKey = encryptionKey;
+            this.PS_Name = PS_Name;
+            this.PS_Password = PS_Password;
+        }
+
+        @Override
+        protected List<String> doInBackground(List<String>... lists) {
+            strList = new ArrayList<>();
+            try {
+                Encrypted_PS_Name = pea.Encrypt(encryptionKey, PS_Name);
+                Encrypted_PS_Password = pea.Encrypt(encryptionKey, PS_Password);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            strList.add(Encrypted_PS_Name);
+            strList.add(Encrypted_PS_Password);
+            return strList;
+        }
     }
 }

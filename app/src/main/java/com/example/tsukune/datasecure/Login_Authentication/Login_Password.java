@@ -3,7 +3,6 @@ package com.example.tsukune.datasecure.Login_Authentication;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -19,9 +18,7 @@ import com.example.tsukune.datasecure.Entity.User;
 import com.example.tsukune.datasecure.Menu;
 import com.example.tsukune.datasecure.R;
 import com.example.tsukune.datasecure.UserDB.UserViewModel;
-
 import org.mindrot.jbcrypt.BCrypt;
-
 import java.util.List;
 
 public class Login_Password extends Fragment {
@@ -60,18 +57,21 @@ public class Login_Password extends Fragment {
         btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                inputLayout_login_password.setError(null);
+
                 loginPassword = editText_Login_Password.getText().toString();
                 mainPassword = user.getMainPassword();
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                    if(loginPassword.isEmpty() || !BCrypt.checkpw(loginPassword, mainPassword)) {
-                        inputLayout_login_password.setError("Please enter valid password");
-                    }
-                    else {
-                        editText_Login_Password.setText(null);
-                        startActivity(new Intent(getActivity(), Menu.class));
-                    }
+                        if(loginPassword.isEmpty() || !BCrypt.checkpw(loginPassword, mainPassword)) {
+                            inputLayout_login_password.setError("Please enter valid password");
+                        }
+                        else {
+                            editText_Login_Password.setText(null);
+                            inputLayout_login_password.setError(null);
+                            startActivity(new Intent(getActivity(), Menu.class));
+                        }
                     }
                 });
             }

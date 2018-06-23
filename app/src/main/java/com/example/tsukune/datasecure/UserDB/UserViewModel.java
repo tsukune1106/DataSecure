@@ -3,6 +3,7 @@ package com.example.tsukune.datasecure.UserDB;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.persistence.room.Update;
 import android.support.annotation.NonNull;
 
 import com.example.tsukune.datasecure.Entity.User;
@@ -14,6 +15,7 @@ public class UserViewModel extends AndroidViewModel {
 
     private LiveData<List<User>> mUser;
     private UserRepository userRepository;
+    private UserRepository.UpdateUserLogin updateUserLogin;
 
     public UserViewModel(Application application) {
         super(application);
@@ -35,5 +37,9 @@ public class UserViewModel extends AndroidViewModel {
 
     public void updateUser(User user) {
         userRepository.updateUser(user);
+    }
+
+    public void updateUserLogin(UserRepository.UpdateUserLogin updateUserLogin) {
+        userRepository.updateUserLogin(updateUserLogin);
     }
 }
