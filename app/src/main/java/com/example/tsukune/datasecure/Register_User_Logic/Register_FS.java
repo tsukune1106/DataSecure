@@ -58,7 +58,7 @@ public class Register_FS extends Fragment {
 
         tv_register_fs.setText("\u25cf All field must be enter." +
                 "\n\u25cf New PS Password must contains 6 digits" +
-                "\n\u25cf Confirm PS Password must be the same as New " + "\nPS Password");
+                "\n\u25cf Confirm FS Password must be the same as New " + "\nFS Password");
 
         btn_register_fs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,9 +68,11 @@ public class Register_FS extends Fragment {
 
                 if (et_NewFSPassword.getText().toString().length() != 6 || et_NewFSPassword.getText().toString().isEmpty()) {
                     til_NewFSPassword.setError("Invalid Field!");
-                } else if (!et_ConfirmFSPassword.getText().toString().equals(et_NewFSPassword.getText().toString())) {
+                }
+                else if (!et_ConfirmFSPassword.getText().toString().equals(et_NewFSPassword.getText().toString())) {
                     til_ConfirmFSPassword.setError("Invalid Field!");
-                } else {
+                }
+                else {
                     pwList = new ArrayList<>();
                     hashedList = new ArrayList<>();
                     pwList.add(newPassword);

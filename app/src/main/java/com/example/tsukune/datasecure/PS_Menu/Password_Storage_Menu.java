@@ -60,7 +60,7 @@ public class Password_Storage_Menu extends AppCompatActivity {
         Password_Storage ps = new Password_Storage(name, password);
         Log.i("PS name", ps.getPs_Name());
         Log.i("PS pw", ps.getPs_Password());
-//        psViewModel.addPS(ps);
+        psViewModel.addPS(ps);
     }
 
 

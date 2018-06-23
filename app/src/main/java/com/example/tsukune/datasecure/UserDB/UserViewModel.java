@@ -42,4 +42,12 @@ public class UserViewModel extends AndroidViewModel {
     public void updateUserLogin(UserRepository.UpdateUserLogin updateUserLogin) {
         userRepository.updateUserLogin(updateUserLogin);
     }
+
+    public void updatePS(UserRepository.Update_PS_FS update_ps_fs) {
+        userRepository.updatePS(update_ps_fs);
+    }
+
+    public void updateFS(UserRepository.Update_PS_FS update_ps_fs) {
+        userRepository.updateFS(update_ps_fs);
+    }
 }

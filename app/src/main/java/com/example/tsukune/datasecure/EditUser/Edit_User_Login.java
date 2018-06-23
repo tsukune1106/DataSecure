@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,8 +61,6 @@ public class Edit_User_Login extends Fragment {
                 Input_EditUsername.setText(user.getUsername());
             }
         });
-
-
 
         getActivity().setTitle("Edit User Login");
         TextView_Edit_Login.setTextColor(Color.RED);

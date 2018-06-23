@@ -19,8 +19,9 @@ public class Menu extends AppCompatActivity {
 
     private UserViewModel userViewModel;
     private Button btn_FS_Menu, btn_PS_Menu, btn_Settings;
-    private static User user;
-    public static String ps_Password, fs_Password;
+    private User user;
+    private Access_PS_FS dialog_access_ps_fs;
+    public static String ps_password, fs_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +38,15 @@ public class Menu extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<User> users) {
                 user = users.get(0);
-//                ps_Password = user.getPasswordStorage();
-//                fs_Password = user.getFileStorage();
+                ps_password = user.getPasswordStorage();
+                fs_password = user.getFileStorage();
             }
         });
 
         btn_FS_Menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showAccessDialog(btn_FS_Menu.getId());
                 startActivity(new Intent(Menu.this, Password_Storage_Menu.class));
             }
         });
@@ -63,5 +64,13 @@ public class Menu extends AppCompatActivity {
                 startActivity(new Intent(Menu.this, Settings.class));
             }
         });
+    }
+
+    public void showAccessDialog(int btn_id) {
+        dialog_access_ps_fs = new Access_PS_FS();
+        Bundle b = new Bundle();
+        b.putInt("ButtonID", btn_id);
+        dialog_access_ps_fs.setArguments(b);
+        dialog_access_ps_fs.show(getFragmentManager(), "Access_PS_FS");
     }
 }

@@ -24,9 +24,9 @@ public class  UserRepository {
     }
 
     public static class UpdateUserLogin {
-        int id;
-        String username;
-        String password;
+        private int id;
+        private String username;
+        private String password;
 
         public UpdateUserLogin(int id, String username, String password) {
             this.id = id;
@@ -34,6 +34,26 @@ public class  UserRepository {
             this.password = password;
         }
     }
+
+    public static class Update_PS_FS {
+        private int id;
+        private String password;
+
+        public Update_PS_FS(int id, String password) {
+            this.id = id;
+            this.password = password;
+        }
+    }
+
+//    private static class UpdateFS {
+//        private int id;
+//        private String fs_Password;
+//
+//        public UpdateFS(int id, String fs_Password) {
+//            this.id = id;
+//            this.fs_Password = fs_Password;
+//        }
+//    }
 
     public LiveData<List<User>> getAllUser(){
         return userDAO.getAllUser();
@@ -54,6 +74,14 @@ public class  UserRepository {
 
     public void updateUserLogin(UpdateUserLogin updateUserLogin) {
         new updateUserLogin_AsyncTask(userDAO).execute(updateUserLogin);
+    }
+
+    public void updatePS(Update_PS_FS update_ps_fs) {
+        new updatePS_AsyncTask(userDAO).execute(update_ps_fs);
+    }
+
+    public void updateFS(Update_PS_FS update_ps_fs) {
+        new updateFS_AsyncTask(userDAO).execute(update_ps_fs);
     }
 
     private static class getCountAsyncTask extends AsyncTask<Integer, Void, Integer> {
@@ -117,6 +145,46 @@ public class  UserRepository {
             password = params[0].password;
             hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
             mAsyncTaskDAO.updateUserLogin(id, username, hashedPassword);
+            return null;
+        }
+    }
+
+    private static class updatePS_AsyncTask extends AsyncTask<Update_PS_FS, Void, Void> {
+
+        private UserDAO mAsyncTaskDAO;
+        private int id;
+        private String password, hashed_PSPassword;
+
+        public updatePS_AsyncTask(UserDAO mAsyncTaskDAO) {
+            this.mAsyncTaskDAO = mAsyncTaskDAO;
+        }
+
+        @Override
+        protected Void doInBackground(Update_PS_FS... params) {
+            id = params[0].id;
+            password = params[0].password;
+            hashed_PSPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
+            mAsyncTaskDAO.updatePS(id, hashed_PSPassword);
+            return null;
+        }
+    }
+
+    private static class updateFS_AsyncTask extends AsyncTask<Update_PS_FS, Void, Void> {
+
+        private UserDAO mAsyncTaskDAO;
+        private int id;
+        private String password, hashedPassword;
+
+        public updateFS_AsyncTask(UserDAO mAsyncTaskDAO) {
+            this.mAsyncTaskDAO = mAsyncTaskDAO;
+        }
+
+        @Override
+        protected Void doInBackground(Update_PS_FS... params) {
+            id = params[0].id;
+            password = params[0].password;
+            hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
+            mAsyncTaskDAO.updateFS(id, hashedPassword);
             return null;
         }
     }

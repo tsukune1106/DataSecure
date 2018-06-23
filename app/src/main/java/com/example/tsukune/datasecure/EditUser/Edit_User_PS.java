@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +15,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.tsukune.datasecure.Entity.User;
 import com.example.tsukune.datasecure.Login_Authentication.Login_Options;
 import com.example.tsukune.datasecure.R;
+import com.example.tsukune.datasecure.UserDB.UserRepository;
 import com.example.tsukune.datasecure.UserDB.UserViewModel;
-
 import java.util.List;
 
 public class Edit_User_PS extends Fragment {
@@ -32,6 +30,7 @@ public class Edit_User_PS extends Fragment {
     private Button btn_edit_ps;
     private UserViewModel userViewModel;
     private User user;
+    private UserRepository.Update_PS_FS update_ps_fs;
 
     @Nullable
     @Override
@@ -55,8 +54,8 @@ public class Edit_User_PS extends Fragment {
         });
 
         tv_edit_ps.setText("\u25cf All field must be enter." +
-                "\n\u25cf New PS Password must contains 6 digits" +
-                "\n\u25cf Confirm PS Password must be the same as New " + "\nPS Password");
+                "\n\u25cf PS Password must contains 6 digits" +
+                "\n\u25cf Confirm PS Password must be the same as PS Password");
 
         til_EditPSPassword.setHint("PS Password");
         til_EditConfirmPSPassword.setHint("Confirm PS Password");
@@ -74,7 +73,8 @@ public class Edit_User_PS extends Fragment {
                     til_EditConfirmPSPassword.setError("Invalid Field!");
                 }
                 else {
-
+                    update_ps_fs = new UserRepository.Update_PS_FS(user.getId(), et_EditConfirmPSPassword.getText().toString());
+                    userViewModel.updatePS(update_ps_fs);
                     Toast.makeText(getActivity(), "Edit Successful!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getActivity(), Login_Options.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

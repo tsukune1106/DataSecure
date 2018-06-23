@@ -29,6 +29,7 @@ public class Add_PS_Menu extends DialogFragment {
     private String encrypted_PSName, encrypted_PSPassword;
     public String encryptionKey;
     private List<String> hashedList;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return super.onCreateDialog(savedInstanceState);
