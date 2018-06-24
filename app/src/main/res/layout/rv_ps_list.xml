@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:paddingTop="5dp">
 
     <TextView
         android:id="@+id/tv_ein_PS_Name"
-        android:layout_width="374dp"
+        android:layout_width="375dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/rounded_textview"
         android:hint="Name"
         android:textSize="16dp"
@@ -25,17 +25,16 @@
 
     <TextView
         android:id="@+id/tv_ein_PS_Password"
-        android:layout_width="374dp"
+        android:layout_width="375dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_below="@+id/tv_ein_PS_Name"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/rounded_textview2"
         android:hint="Password"
         android:textSize="14dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tv_ein_PS_Name"
         app:layout_constraintHorizontal_bias="0.476"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_ein_PS_Name"
         app:layout_constraintTop_toBottomOf="@+id/tv_ein_PS_Name" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

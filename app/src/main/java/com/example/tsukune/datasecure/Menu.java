@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-
 import com.example.tsukune.datasecure.EditUser.Settings;
 import com.example.tsukune.datasecure.Entity.User;
 import com.example.tsukune.datasecure.PS_Menu.Password_Storage_Menu;
@@ -47,14 +46,13 @@ public class Menu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showAccessDialog(btn_FS_Menu.getId());
-                startActivity(new Intent(Menu.this, Password_Storage_Menu.class));
             }
         });
 
         btn_PS_Menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Menu.this, Password_Storage_Menu.class));
+                showAccessDialog(btn_PS_Menu.getId());
             }
         });
 

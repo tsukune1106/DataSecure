@@ -45,16 +45,6 @@ public class  UserRepository {
         }
     }
 
-//    private static class UpdateFS {
-//        private int id;
-//        private String fs_Password;
-//
-//        public UpdateFS(int id, String fs_Password) {
-//            this.id = id;
-//            this.fs_Password = fs_Password;
-//        }
-//    }
-
     public LiveData<List<User>> getAllUser(){
         return userDAO.getAllUser();
     }
@@ -65,7 +55,7 @@ public class  UserRepository {
     }
 
     public void addUser(User user) {
-        new  insertAsyncTask(userDAO).execute(user);
+        new insertAsyncTask(userDAO).execute(user);
     }
 
     public void updateUser (User user) {

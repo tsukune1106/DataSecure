@@ -35,8 +35,8 @@ public class PasswordStorageRepository {
         }
 
         @Override
-        protected Void doInBackground(Password_Storage... password_storages) {
-            mAsyncTaskDAO.addPS(password_storages[0]);
+        protected Void doInBackground(Password_Storage... ps) {
+            mAsyncTaskDAO.addPS(ps[0]);
             return null;
         }
     }
@@ -50,8 +50,8 @@ public class PasswordStorageRepository {
         }
 
         @Override
-        protected Void doInBackground(Password_Storage... password_storages) {
-            mAsyncTaskDAO.deletePS(password_storages[0]);
+        protected Void doInBackground(Password_Storage... ps) {
+            mAsyncTaskDAO.updatePS(ps[0]);
             return null;
         }
     }
@@ -65,8 +65,8 @@ public class PasswordStorageRepository {
         }
 
         @Override
-        protected Void doInBackground(Password_Storage... password_storages) {
-            mAsyncTaskDAO.deletePS(password_storages[0]);
+        protected Void doInBackground(Password_Storage... ps) {
+            mAsyncTaskDAO.deletePS(ps[0]);
             return null;
         }
     }

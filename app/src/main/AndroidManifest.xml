@@ -40,17 +40,21 @@
             android:label="register_user">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Menu" />
+        <activity android:name=".Menu"
+            android:label="Menu">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".PS_Menu.Password_Storage_Menu"
             android:label="ps_menu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -59,11 +63,10 @@
             android:label="settings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Access_PS_FS"></activity>
+        <activity android:name=".PS_Menu.Edit_PS_Menu"></activity>
     </application>
 
 </manifest>

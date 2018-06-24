@@ -17,7 +17,7 @@ public class PasswordStorageViewModel extends AndroidViewModel {
         this.mPS = psRepository.getAllPS();
     }
 
-    public LiveData<List<Password_Storage>> getmPS() {
+    public LiveData<List<Password_Storage>> getAllPS() {
         return mPS;
     }
 

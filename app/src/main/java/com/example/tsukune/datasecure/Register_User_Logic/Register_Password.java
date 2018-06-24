@@ -1,6 +1,5 @@
 package com.example.tsukune.datasecure.Register_User_Logic;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.example.tsukune.datasecure.R;
-import com.example.tsukune.datasecure.UserDB.UserViewModel;
 import java.util.regex.Pattern;
 
 public class Register_Password extends Fragment {
@@ -23,14 +21,12 @@ public class Register_Password extends Fragment {
     private EditText Input_NewUsername, Input_NewPassword, Input_ConfirmPassword;
     private TextView TextView_Register;
     private Button Btn_register_password;
-    private UserViewModel userViewModel;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register_password, container, false);
 
-        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         InputLayout_NewUsername = view.findViewById(R.id.inputLayout_NewUsername);
         InputLayout_NewPassword = view.findViewById(R.id.inputLayout_NewPassword);
         InputLayout_ConfirmPassword = view.findViewById(R.id.inputLayout_ConfirmPassword);
@@ -54,16 +50,7 @@ public class Register_Password extends Fragment {
                 InputLayout_NewPassword.setError(null);
                 InputLayout_ConfirmPassword.setError(null);
 
-                if (Input_NewUsername.getText().toString().isEmpty()){
-                    InputLayout_NewUsername.setError("Invalid Field!");
-                }
-                if(!isValidPassword(Input_NewPassword.getText().toString()) && Input_NewPassword.getText().toString().isEmpty()) {
-                    InputLayout_NewPassword.setError("Invalid Field!");
-                }
-                else if (!Input_ConfirmPassword.getText().toString().equals(Input_NewPassword.getText().toString())) {
-                    InputLayout_ConfirmPassword.setError("Invalid Field!");
-                }
-                else {
+                if (Validate()) {
                     Fragment frg = new Register_PS();
                     Bundle b = new Bundle();
                     b.putString("newUsername", Input_NewUsername.getText().toString());
@@ -78,13 +65,24 @@ public class Register_Password extends Fragment {
     }
 
     public boolean isValidPassword (final String password) {
-//        Pattern pattern;
-//        Matcher matcher;
-//        final String Password_Pattern = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}";
-//        pattern = Pattern.compile(Password_Pattern);
-//        matcher = pattern.matcher(password);
-//        return matcher.matches();
         Pattern pattern = Pattern.compile("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}");
         return pattern.matcher(password).matches();
+    }
+
+    private boolean Validate(){
+        boolean check = true;
+        if (Input_NewUsername.getText().toString().isEmpty()) {
+            InputLayout_NewUsername.setError("Invalid Field!");
+            check = false;
+        }
+        if (!isValidPassword(Input_NewPassword.getText().toString()) || Input_NewPassword.getText().toString().isEmpty()) {
+            InputLayout_NewPassword.setError("Invalid Field!");
+            check = false;
+        }
+        if (!Input_ConfirmPassword.getText().toString().equals(Input_NewPassword.getText().toString())) {
+            InputLayout_ConfirmPassword.setError("Invalid Field!");
+            check = false;
+        }
+        return check;
     }
 }

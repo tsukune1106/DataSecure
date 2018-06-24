@@ -75,6 +75,10 @@ public class Password_Encryption_Algorithm {
         return new Ein_PS_Encryption_AsyncTask(encryptionKey, ps_Name, ps_Password).execute().get();
     }
 
+    public List<String> Ein_PS_Decryption (String encryptionKey, String ps_Name, String ps_Password) throws ExecutionException, InterruptedException {
+        return new Ein_PS_Decryption_AsyncTask(encryptionKey, ps_Name, ps_Password).execute().get();
+    }
+
     private static class Ein_PS_Encryption_AsyncTask extends AsyncTask<List<String>, Void, List<String>> {
 
         private String encryptionKey, PS_Name, PS_Password;
@@ -99,6 +103,34 @@ public class Password_Encryption_Algorithm {
             }
             strList.add(Encrypted_PS_Name);
             strList.add(Encrypted_PS_Password);
+            return strList;
+        }
+    }
+
+    private static class Ein_PS_Decryption_AsyncTask extends AsyncTask<List<String>, Void, List<String>> {
+
+        private String encryptionKey, PS_Name, PS_Password;
+        String Decrypted_PS_Name, Decrypted_PS_Password;
+        private List<String> strList;
+        Password_Encryption_Algorithm pea = new Password_Encryption_Algorithm();
+
+        public Ein_PS_Decryption_AsyncTask(String encryptionKey, String PS_Name, String PS_Password) {
+            this.encryptionKey = encryptionKey;
+            this.PS_Name = PS_Name;
+            this.PS_Password = PS_Password;
+        }
+
+        @Override
+        protected List<String> doInBackground(List<String>... lists) {
+            strList = new ArrayList<>();
+            try {
+                Decrypted_PS_Name = pea.Decrypt(encryptionKey, PS_Name);
+                Decrypted_PS_Password = pea.Decrypt(encryptionKey, PS_Password);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            strList.add(Decrypted_PS_Name);
+            strList.add(Decrypted_PS_Password);
             return strList;
         }
     }
