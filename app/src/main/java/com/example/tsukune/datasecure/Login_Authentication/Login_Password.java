@@ -3,6 +3,7 @@ package com.example.tsukune.datasecure.Login_Authentication;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -14,12 +15,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.example.tsukune.datasecure.Dialog_ProgressBar;
 import com.example.tsukune.datasecure.Entity.User;
 import com.example.tsukune.datasecure.Menu;
 import com.example.tsukune.datasecure.R;
 import com.example.tsukune.datasecure.UserDB.UserViewModel;
 import org.mindrot.jbcrypt.BCrypt;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class Login_Password extends Fragment {
 
@@ -31,6 +34,8 @@ public class Login_Password extends Fragment {
     private Button btn_Login;
     private User user;
     private String loginPassword, mainPassword;
+    private int btn_id;
+    private boolean valid;
 
     @Nullable
     @Override
@@ -57,25 +62,86 @@ public class Login_Password extends Fragment {
         btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inputLayout_login_password.setError(null);
-
-                loginPassword = editText_Login_Password.getText().toString();
-                mainPassword = user.getMainPassword();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(loginPassword.isEmpty() || !BCrypt.checkpw(loginPassword, mainPassword)) {
-                            inputLayout_login_password.setError("Please enter valid password");
-                        }
-                        else {
-                            editText_Login_Password.setText(null);
-                            inputLayout_login_password.setError(null);
-                            startActivity(new Intent(getActivity(), Menu.class));
-                        }
-                    }
-                });
+            inputLayout_login_password.setError(null);
+            btn_id = btn_Login.getId();
+            loginPassword = editText_Login_Password.getText().toString();
+            mainPassword = user.getMainPassword();
+                try {
+                    valid = new CheckPassword(btn_id, inputLayout_login_password, editText_Login_Password, loginPassword, mainPassword).execute().get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                if(!valid) {
+                    inputLayout_login_password.setError("Please enter valid password");
+                }
+                else {
+                    editText_Login_Password.setText(null);
+                        inputLayout_login_password.setError(null);
+                        startActivity(new Intent(getActivity(), Menu.class));
+                }
+//            getActivity().runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if(loginPassword.isEmpty() || !BCrypt.checkpw(loginPassword, mainPassword)) {
+//                        inputLayout_login_password.setError("Please enter valid password");
+//                    }
+//                    else {
+//                        editText_Login_Password.setText(null);
+//                        inputLayout_login_password.setError(null);
+//                        startActivity(new Intent(getActivity(), Menu.class));
+//                    }
+//                }
+//            });
             }
         });
         return view;
+    }
+    public void getFileName(){
+
+    }
+
+    private class CheckPassword extends AsyncTask<Void, Void, Boolean> {
+
+        private int btn_id;
+        private TextInputLayout til;
+        private EditText et;
+        private String loginPassword, mainPassword;
+        private Dialog_ProgressBar dialog_progressBar;
+        private boolean valid = true;
+
+        public CheckPassword(int btn_id, TextInputLayout til, EditText et, String loginPassword, String mainPassword) {
+            this.btn_id = btn_id;
+            this.til = til;
+            this.et = et;
+            this.loginPassword = loginPassword;
+            this.mainPassword = mainPassword;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            dialog_progressBar = new Dialog_ProgressBar();
+            Bundle b = new Bundle();
+            b.putInt("ButtonID", btn_id);
+            dialog_progressBar.setArguments(b);
+            dialog_progressBar.show(getActivity().getFragmentManager(), "Dialog_ProgressBar");
+            super.onPreExecute();
+        }
+
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            if(loginPassword.isEmpty() || !BCrypt.checkpw(loginPassword, mainPassword)){
+                return valid = false;
+            }
+            return valid;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            dialog_progressBar.dismiss();
+            super.onPostExecute(aBoolean);
+        }
     }
 }

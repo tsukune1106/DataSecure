@@ -6,13 +6,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import com.example.tsukune.datasecure.EditUser.Settings;
+import com.example.tsukune.datasecure.Encryption_Algorithm.Password_Encryption_Algorithm;
 import com.example.tsukune.datasecure.Entity.User;
 import com.example.tsukune.datasecure.PS_Menu.Password_Storage_Menu;
 import com.example.tsukune.datasecure.UserDB.UserViewModel;
+
+import java.security.spec.KeySpec;
 import java.util.List;
+
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 
 public class Menu extends AppCompatActivity {
 
@@ -20,7 +29,7 @@ public class Menu extends AppCompatActivity {
     private Button btn_FS_Menu, btn_PS_Menu, btn_Settings;
     private User user;
     private Access_PS_FS dialog_access_ps_fs;
-    public static String ps_password, fs_password;
+    public static String ps_password, fs_password, ps_encryptionKey, fs_encryptionKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +48,8 @@ public class Menu extends AppCompatActivity {
                 user = users.get(0);
                 ps_password = user.getPasswordStorage();
                 fs_password = user.getFileStorage();
+                ps_encryptionKey = user.getPs_encryptionKey();
+                fs_password = user.getFs_encryptionKey();
             }
         });
 

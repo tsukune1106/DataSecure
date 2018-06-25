@@ -22,11 +22,19 @@ public class User {
     @ColumnInfo(name = "File_Storage")
     private String fileStorage;
 
-    public User(String username, String mainPassword, String passwordStorage, String fileStorage) {
+    @ColumnInfo(name = "PS_EncryptionKey")
+    private String ps_encryptionKey;
+
+    @ColumnInfo(name = "FS_EncryptionKey")
+    private String fs_encryptionKey;
+
+    public User(String username, String mainPassword, String passwordStorage, String fileStorage, String ps_encryptionKey, String fs_encryptionKey) {
         this.username = username;
         this.mainPassword = mainPassword;
         this.passwordStorage = passwordStorage;
         this.fileStorage = fileStorage;
+        this.ps_encryptionKey = ps_encryptionKey;
+        this.fs_encryptionKey = fs_encryptionKey;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Get, Set">
@@ -69,5 +77,22 @@ public class User {
     public void setFileStorage(String fileStorage) {
         this.fileStorage = fileStorage;
     }
+
+    public String getPs_encryptionKey() {
+        return ps_encryptionKey;
+    }
+
+    public void setPs_encryptionKey(String ps_encryptionKey) {
+        this.ps_encryptionKey = ps_encryptionKey;
+    }
+
+    public String getFs_encryptionKey() {
+        return fs_encryptionKey;
+    }
+
+    public void setFs_encryptionKey(String fs_encryptionKey) {
+        this.fs_encryptionKey = fs_encryptionKey;
+    }
+
     // </editor-fold>
 }

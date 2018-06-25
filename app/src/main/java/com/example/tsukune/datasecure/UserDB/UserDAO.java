@@ -29,9 +29,9 @@ public interface UserDAO {
     @Query("UPDATE User SET Username = :username, Main_Password = :main_Password  WHERE id = :uid")
     void updateUserLogin(int uid, String username, String main_Password);
 
-    @Query("UPDATE User SET Password_Storage = :ps_Password  WHERE id = :uid")
-    void updatePS(int uid, String ps_Password);
+    @Query("UPDATE User SET Password_Storage = :ps_Password, PS_EncryptionKey= :ps_encryptionKey  WHERE id = :uid")
+    void updatePS(int uid, String ps_Password, String ps_encryptionKey);
 
-    @Query("UPDATE User SET File_Storage = :fs_Password WHERE id = :uid")
-    void updateFS(int uid, String fs_Password);
+    @Query("UPDATE User SET File_Storage = :fs_Password, FS_EncryptionKey =:fs_encryptionKey WHERE id = :uid")
+    void updateFS(int uid, String fs_Password, String fs_encryptionKey);
 }

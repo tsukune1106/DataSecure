@@ -37,11 +37,12 @@ public class  UserRepository {
 
     public static class Update_PS_FS {
         private int id;
-        private String password;
+        private String password, encryptionKey;
 
-        public Update_PS_FS(int id, String password) {
+        public Update_PS_FS(int id, String password, String encryptionKey) {
             this.id = id;
             this.password = password;
+            this.encryptionKey = encryptionKey;
         }
     }
 
@@ -50,8 +51,7 @@ public class  UserRepository {
     }
 
     public int getCount() throws ExecutionException, InterruptedException {
-        int count = userDAO.getCount();
-        return new getCountAsyncTask(userDAO).execute(count).get();
+        return new getCountAsyncTask(userDAO).execute().get();
     }
 
     public void addUser(User user) {
@@ -83,8 +83,7 @@ public class  UserRepository {
 
         @Override
         protected Integer doInBackground(Integer... integers) {
-            int count = mAsyncTaskDAO.getCount();
-            return count;
+            return mAsyncTaskDAO.getCount();
         }
     }
 
@@ -143,7 +142,7 @@ public class  UserRepository {
 
         private UserDAO mAsyncTaskDAO;
         private int id;
-        private String password, hashed_PSPassword;
+        private String hashed_PSPassword, ps_encryptionKey;
 
         public updatePS_AsyncTask(UserDAO mAsyncTaskDAO) {
             this.mAsyncTaskDAO = mAsyncTaskDAO;
@@ -152,9 +151,9 @@ public class  UserRepository {
         @Override
         protected Void doInBackground(Update_PS_FS... params) {
             id = params[0].id;
-            password = params[0].password;
-            hashed_PSPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
-            mAsyncTaskDAO.updatePS(id, hashed_PSPassword);
+            hashed_PSPassword = params[0].password;
+            ps_encryptionKey = params[0].encryptionKey;
+            mAsyncTaskDAO.updatePS(id, hashed_PSPassword, ps_encryptionKey);
             return null;
         }
     }
@@ -163,7 +162,7 @@ public class  UserRepository {
 
         private UserDAO mAsyncTaskDAO;
         private int id;
-        private String password, hashedPassword;
+        private String hashedPassword, fs_encryptionKey;
 
         public updateFS_AsyncTask(UserDAO mAsyncTaskDAO) {
             this.mAsyncTaskDAO = mAsyncTaskDAO;
@@ -172,9 +171,9 @@ public class  UserRepository {
         @Override
         protected Void doInBackground(Update_PS_FS... params) {
             id = params[0].id;
-            password = params[0].password;
-            hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(10));
-            mAsyncTaskDAO.updateFS(id, hashedPassword);
+            hashedPassword = params[0].password;
+            fs_encryptionKey = params[0].encryptionKey;
+            mAsyncTaskDAO.updateFS(id, hashedPassword, fs_encryptionKey);
             return null;
         }
     }

@@ -15,13 +15,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.tsukune.datasecure.Encryption_Algorithm.Password_Encryption_Algorithm;
 import com.example.tsukune.datasecure.Entity.User;
 import com.example.tsukune.datasecure.MainActivity;
 import com.example.tsukune.datasecure.R;
 import com.example.tsukune.datasecure.UserDB.UserViewModel;
 import org.mindrot.jbcrypt.BCrypt;
+
+import java.security.spec.KeySpec;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 
 public class Register_FS extends Fragment {
 
@@ -30,7 +39,7 @@ public class Register_FS extends Fragment {
     private EditText et_NewFSPassword, et_ConfirmFSPassword;
     private Button btn_register_fs;
     private String newUsername, newPassword, newPSPassword;
-    private String hashedNewPassword, hashedPSPassword, hashedFSPassword;
+    private String hashedNewPassword, hashedPSPassword, hashedFSPassword, ps_encryptionKey, fs_encryptionKey;
     private UserViewModel userViewModel;
     private List<String> pwList, hashedList;
 
@@ -73,23 +82,27 @@ public class Register_FS extends Fragment {
                     til_ConfirmFSPassword.setError("Invalid Field!");
                 }
                 else {
-                    pwList = new ArrayList<>();
+//                    pwList = new ArrayList<>();
                     hashedList = new ArrayList<>();
-                    pwList.add(newPassword);
-                    pwList.add(newPSPassword);
-                    pwList.add(et_ConfirmFSPassword.getText().toString());
+//                    pwList.add(newPassword);
+//                    pwList.add(newPSPassword);
+//                    pwList.add(et_ConfirmFSPassword.getText().toString());
                     try {
-                        hashedList = new GenerateHashPw(newPassword, newPSPassword, et_ConfirmFSPassword.getText().toString()).execute(pwList).get();
+                        hashedList = new GenerateHashPw(newPassword, newPSPassword, et_ConfirmFSPassword.getText().toString()).execute().get();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     hashedNewPassword = hashedList.get(0);
                     hashedPSPassword = hashedList.get(1);
                     hashedFSPassword = hashedList.get(2);
+                    ps_encryptionKey = hashedList.get(3);
+                    fs_encryptionKey = hashedList.get(4);
                     Log.i("New Password", hashedNewPassword);
                     Log.i("New PS Password", hashedPSPassword);
                     Log.i("New FS Password", hashedFSPassword);
-                    User user = new User(newUsername, hashedNewPassword, hashedPSPassword, hashedFSPassword);
+                    Log.i("New PS Key", ps_encryptionKey);
+                    Log.i("New FS Key", fs_encryptionKey);
+                    User user = new User(newUsername, hashedNewPassword, hashedPSPassword, hashedFSPassword, ps_encryptionKey, fs_encryptionKey);
                     userViewModel.addUser(user);
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -104,6 +117,7 @@ public class Register_FS extends Fragment {
 
         private String newPassword, newPSPassword, newFSPassword;
         private String hashedNewPassword, hashedPSPassword, hashedFSPassword;
+        public String ps_encryptionKey, fs_encryptionKey;
         private List<String> strList;
 
         public GenerateHashPw(String newPassword, String newPSPassword, String newFSPassword) {
@@ -118,10 +132,30 @@ public class Register_FS extends Fragment {
             hashedNewPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt(10));
             hashedPSPassword = BCrypt.hashpw(newPSPassword, BCrypt.gensalt(10));
             hashedFSPassword = BCrypt.hashpw(newFSPassword, BCrypt.gensalt(10));
+            try {
+                ps_encryptionKey = GenerateKey(hashedPSPassword);
+                fs_encryptionKey = GenerateKey(hashedFSPassword);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             strList.add(hashedNewPassword);
             strList.add(hashedPSPassword);
             strList.add(hashedFSPassword);
+            strList.add(ps_encryptionKey);
+            strList.add(fs_encryptionKey);
             return strList;
         }
+    }
+
+    public String GenerateKey(String password) throws Exception {
+        byte[] salt = password.getBytes();
+        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 256);
+        SecretKey tmp = factory.generateSecret(spec);
+        SecretKey secret = new SecretKeySpec(tmp.getEncoded(), "AES");
+        Log.i("key", secret.toString());
+        Password_Encryption_Algorithm pea = new Password_Encryption_Algorithm();
+        String encryptedKey = pea.Encrypt(password, secret.toString());
+        return encryptedKey;
     }
 }

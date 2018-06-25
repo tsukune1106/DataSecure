@@ -20,7 +20,6 @@ public class Access_PS_FS extends DialogFragment {
     private TextInputLayout til_access_ps_fs;
     private EditText et_access_ps_fs;
     private Button btn_access_ps_fs, btn_exit_access_ps_fs;
-    private String ps_password, fs_password;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -34,9 +33,6 @@ public class Access_PS_FS extends DialogFragment {
 
         Bundle b = getArguments();
         btn_id = b.getInt("ButtonID");
-
-        ps_password = Menu.ps_password;
-        fs_password = Menu.fs_password;
 
         til_access_ps_fs = view.findViewById(R.id.inputLayout_access_ps_fs);
         et_access_ps_fs = view.findViewById(R.id.editText_access_ps_fs);

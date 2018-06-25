@@ -2,7 +2,6 @@ package com.example.tsukune.datasecure.PS_Menu;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.os.Bundle;

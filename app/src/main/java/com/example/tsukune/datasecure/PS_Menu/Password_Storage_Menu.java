@@ -31,6 +31,7 @@ public class Password_Storage_Menu extends AppCompatActivity {
     private User user;
     private RecyclerView rv;
     private PS_List_RV_Adapter rva;
+    private Password_Encryption_Algorithm pea;
 
     //for dialog_AddPS
     private Add_PS_Menu dialog_AddPS;
@@ -40,6 +41,8 @@ public class Password_Storage_Menu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password__storage__menu);
+
+        pea = new Password_Encryption_Algorithm();
 
         rv = findViewById(R.id.rv_ps_list);
         rva = new PS_List_RV_Adapter(new ArrayList<Password_Storage>());
@@ -55,8 +58,12 @@ public class Password_Storage_Menu extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<User> users) {
                 user = users.get(0);
-                encryptionKey = user.getPasswordStorage();
-                Log.i("ps password", encryptionKey);
+                try {
+                    encryptionKey = pea.Decrypt(user.getPasswordStorage(), user.getPs_encryptionKey());
+                    Log.i("ps password", encryptionKey);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -64,7 +71,7 @@ public class Password_Storage_Menu extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable List<Password_Storage> psList) {
                 if (psList ==  null){
-                    
+                    //edittext
                 }
                 else {
                     rva.addItems(psList);

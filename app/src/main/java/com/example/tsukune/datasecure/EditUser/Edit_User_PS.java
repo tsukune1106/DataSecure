@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.tsukune.datasecure.Encryption_Algorithm.Password_Encryption_Algorithm;
 import com.example.tsukune.datasecure.Entity.User;
 import com.example.tsukune.datasecure.Login_Authentication.Login_Options;
 import com.example.tsukune.datasecure.R;
 import com.example.tsukune.datasecure.UserDB.UserRepository;
 import com.example.tsukune.datasecure.UserDB.UserViewModel;
+
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.util.List;
 
 public class Edit_User_PS extends Fragment {
@@ -31,6 +37,7 @@ public class Edit_User_PS extends Fragment {
     private UserViewModel userViewModel;
     private User user;
     private UserRepository.Update_PS_FS update_ps_fs;
+    private String old_PS_Password, old_ps_encryptionKey, new_ps_encryptionKey, new_PS_Password;
 
     @Nullable
     @Override
@@ -50,6 +57,8 @@ public class Edit_User_PS extends Fragment {
             @Override
             public void onChanged(@Nullable List<User> users) {
                 user = users.get(0);
+                old_PS_Password = user.getPasswordStorage();
+                old_ps_encryptionKey = user.getPs_encryptionKey();
             }
         });
 
@@ -73,7 +82,15 @@ public class Edit_User_PS extends Fragment {
                     til_EditConfirmPSPassword.setError("Invalid Field!");
                 }
                 else {
-                    update_ps_fs = new UserRepository.Update_PS_FS(user.getId(), et_EditConfirmPSPassword.getText().toString());
+                    new_PS_Password = BCrypt.hashpw(et_EditConfirmPSPassword.getText().toString(), BCrypt.gensalt(10));
+                    try {
+                        new_ps_encryptionKey = Edit_PS_EncryptionKey(old_PS_Password, new_PS_Password, old_ps_encryptionKey);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Log.i("new password", new_PS_Password);
+                    Log.i("new encryptionKey", new_ps_encryptionKey);
+                    update_ps_fs = new UserRepository.Update_PS_FS(user.getId(), new_PS_Password, new_ps_encryptionKey);
                     userViewModel.updatePS(update_ps_fs);
                     Toast.makeText(getActivity(), "Edit Successful!", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getActivity(), Login_Options.class);
@@ -84,5 +101,17 @@ public class Edit_User_PS extends Fragment {
         });
 
         return view;
+    }
+
+    public String Edit_PS_EncryptionKey(String old_ps_password, String new_ps_password, String old_ps_encryptionKey) throws Exception {
+        Password_Encryption_Algorithm pea = new Password_Encryption_Algorithm();
+        Log.i("old password", old_ps_password);
+        Log.i("old encryptionKey", old_ps_encryptionKey);
+        String originalKey = pea.Decrypt(old_ps_password, old_ps_encryptionKey);
+        Log.i("original", originalKey);
+        String new_ps_encryptionKey = pea.Encrypt(new_ps_password, originalKey);
+        Log.i("new password", new_ps_password);
+        Log.i("new encryptionKey", new_ps_encryptionKey);
+        return new_ps_encryptionKey;
     }
 }
