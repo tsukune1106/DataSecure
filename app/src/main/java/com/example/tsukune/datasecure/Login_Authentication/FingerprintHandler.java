@@ -1,12 +1,18 @@
 package com.example.tsukune.datasecure.Login_Authentication;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.CancellationSignal;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
-import com.example.tsukune.datasecure.Login_Authentication.Login_Fingerprint;
+import android.widget.ImageView;
+
+import com.example.tsukune.datasecure.Menu;
+import com.example.tsukune.datasecure.R;
 
 public class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
 
@@ -40,5 +46,16 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     @Override
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
         lf.getNotification("Access Granted!", true, context);
+
+        final ImageView imageView = ((Activity)context).findViewById(R.id.fingerprintImage);
+        imageView.setImageResource(R.mipmap.done_fingerprint_authentication);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                imageView.setImageResource(R.mipmap.fingerprint_icon);
+                context.startActivity(new Intent(context, Menu.class));
+            }
+        }, 3000);
     }
 }

@@ -16,7 +16,7 @@ public abstract class PasswordStorageDatabase extends RoomDatabase {
     public static synchronized PasswordStorageDatabase getInstance(Context context) {
 
         if (psInstance == null) {
-            psInstance = Room.databaseBuilder(context, PasswordStorageDatabase.class, "Password_Storage_DB").build();
+            psInstance = Room.databaseBuilder(context, PasswordStorageDatabase.class, "Password_Storage_DB.db").build();
         }
         return psInstance;
     }

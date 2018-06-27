@@ -78,6 +78,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
+                                                <entry key="color" value="ffffff" />
                                                 <entry key="paddingPercent" value="10" />
                                               </map>
                                             </option>
@@ -89,7 +90,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio1/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_fingerprint_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio1/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_done_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -99,11 +100,11 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="backgroundColor" value="20ff00" />
                                       <entry key="cropped" value="true" />
-                                      <entry key="iconShape" value="NONE" />
+                                      <entry key="iconShape" value="CIRCLE" />
                                       <entry key="imageAsset" value="C:\Users\Tsukune\Downloads\Drawing (1).png" />
-                                      <entry key="outputName" value="exit_button" />
+                                      <entry key="outputName" value="done_fingerprint_authentication" />
                                     </map>
                                   </option>
                                 </PersistentState>

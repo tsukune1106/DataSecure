@@ -53,7 +53,7 @@ public class Add_PS_Menu extends DialogFragment {
         btn_save_PS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("username", encryptionKey);
+                Log.i("key", encryptionKey);
                 til_addPS_Name.setError(null);
                 til_addPS_Password.setError(null);
 

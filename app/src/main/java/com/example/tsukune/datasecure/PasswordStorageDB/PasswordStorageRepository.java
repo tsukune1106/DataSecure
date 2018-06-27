@@ -26,6 +26,8 @@ public class PasswordStorageRepository {
 
     public void deletePS (Password_Storage ps) { new deleteAsyncTask(psDAO).execute(ps); }
 
+    public void deletePSbyID (int id) { new deleteByID_AsyncTask(psDAO).execute(id); }
+
     public static class insertAsyncTask extends AsyncTask<Password_Storage, Void, Void> {
 
         private PasswordStorageDAO mAsyncTaskDAO;
@@ -67,6 +69,21 @@ public class PasswordStorageRepository {
         @Override
         protected Void doInBackground(Password_Storage... ps) {
             mAsyncTaskDAO.deletePS(ps[0]);
+            return null;
+        }
+    }
+
+    public static class deleteByID_AsyncTask extends AsyncTask<Integer, Void, Void> {
+
+        private PasswordStorageDAO mAsyncTaskDAO;
+
+        public deleteByID_AsyncTask(PasswordStorageDAO mAsyncTaskDAO) {
+            this.mAsyncTaskDAO = mAsyncTaskDAO;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... id) {
+            mAsyncTaskDAO.deletePSbyID(id[0]);
             return null;
         }
     }

@@ -40,13 +40,16 @@
             android:label="register_user">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Menu"
+        <activity
+            android:name=".Menu"
             android:label="Menu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -55,6 +58,7 @@
             android:label="ps_menu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -63,10 +67,12 @@
             android:label="settings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PS_Menu.Edit_PS_Menu"></activity>
+        <activity android:name=".PS_Menu.Edit_PS_Menu" />
+        <activity android:name=".FS_Menu.file_storage_menu" />
     </application>
 
 </manifest>

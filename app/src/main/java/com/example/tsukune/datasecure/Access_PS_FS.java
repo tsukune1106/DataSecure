@@ -55,6 +55,7 @@ public class Access_PS_FS extends DialogFragment {
                         til_access_ps_fs.setError("Invalid Password");
                     }
                     else {
+                        getDialog().dismiss();
 //                        startActivity(new Intent(this, ));
                     }
                 }
@@ -63,7 +64,9 @@ public class Access_PS_FS extends DialogFragment {
                         til_access_ps_fs.setError("Invalid Password");
                     }
                     else {
-                        til_access_ps_fs.setError(null);
+//                        til_access_ps_fs.setError(null);
+//                        et_access_ps_fs.setText(null);
+                        getDialog().dismiss();
                         startActivity(new Intent(getContext(), Password_Storage_Menu.class));
                     }
                 }

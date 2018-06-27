@@ -30,7 +30,7 @@ public class Password_Storage_Menu extends AppCompatActivity {
     private FloatingActionButton fab_AddPS;
     private User user;
     private RecyclerView rv;
-    private PS_List_RV_Adapter rva;
+    private static PS_List_RV_Adapter rva;
     private Password_Encryption_Algorithm pea;
 
     //for dialog_AddPS
@@ -45,7 +45,7 @@ public class Password_Storage_Menu extends AppCompatActivity {
         pea = new Password_Encryption_Algorithm();
 
         rv = findViewById(R.id.rv_ps_list);
-        rva = new PS_List_RV_Adapter(new ArrayList<Password_Storage>());
+        rva = new PS_List_RV_Adapter(this, new ArrayList<Password_Storage>(), this.getFragmentManager());
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(rva);
 
@@ -95,5 +95,17 @@ public class Password_Storage_Menu extends AppCompatActivity {
         psViewModel.addPS(ps);
     }
 
+    public void Update_PS (Password_Storage ps) {
+        psViewModel.updatePS(ps);
+    }
 
+    public void Delete_PS (int id){
+        psViewModel.deletePSbyID(id);
+    }
+
+    @Override
+    public void onBackPressed() {
+        encryptionKey = null;
+        super.onBackPressed();
+    }
 }

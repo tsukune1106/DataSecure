@@ -9,7 +9,7 @@
     tools:context=".PS_Menu.Edit_PS_Menu">
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/inputLayout_addPS_Name"
+        android:id="@+id/inputLayout_editPS_Name"
         android:layout_width="300dp"
         android:layout_height="62dp"
         android:layout_marginEnd="8dp"
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/editText_addPS_Name"
+            android:id="@+id/editText_editPS_Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
@@ -34,19 +34,19 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/inputLayout_addPS_Password"
+        android:id="@+id/inputLayout_editPS_Password"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:textColorHint="@color/White"
         app:hintTextAppearance="@style/hint_register_password"
-        app:layout_constraintEnd_toEndOf="@+id/inputLayout_addPS_Name"
-        app:layout_constraintStart_toStartOf="@+id/inputLayout_addPS_Name"
-        app:layout_constraintTop_toBottomOf="@+id/inputLayout_addPS_Name">
+        app:layout_constraintEnd_toEndOf="@+id/inputLayout_editPS_Name"
+        app:layout_constraintStart_toStartOf="@+id/inputLayout_editPS_Name"
+        app:layout_constraintTop_toBottomOf="@+id/inputLayout_editPS_Name">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/editText_addPS_Password"
+            android:id="@+id/editText_editPS_Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/White"
@@ -67,8 +67,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_update_PS"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/inputLayout_addPS_Password"
-        app:layout_constraintTop_toBottomOf="@+id/inputLayout_addPS_Password"
+        app:layout_constraintStart_toStartOf="@+id/inputLayout_editPS_Password"
+        app:layout_constraintTop_toBottomOf="@+id/inputLayout_editPS_Password"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
@@ -79,12 +79,12 @@
         android:layout_marginTop="24dp"
         android:text="Update"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/inputLayout_addPS_Password"
-        app:layout_constraintTop_toBottomOf="@+id/inputLayout_addPS_Password"
+        app:layout_constraintEnd_toEndOf="@+id/inputLayout_editPS_Password"
+        app:layout_constraintTop_toBottomOf="@+id/inputLayout_editPS_Password"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/btn_exit_addPS"
+        android:id="@+id/btn_exit_editPS"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginBottom="8dp"

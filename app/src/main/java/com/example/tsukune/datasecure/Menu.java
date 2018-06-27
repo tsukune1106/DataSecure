@@ -6,22 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import com.example.tsukune.datasecure.EditUser.Settings;
-import com.example.tsukune.datasecure.Encryption_Algorithm.Password_Encryption_Algorithm;
 import com.example.tsukune.datasecure.Entity.User;
-import com.example.tsukune.datasecure.PS_Menu.Password_Storage_Menu;
 import com.example.tsukune.datasecure.UserDB.UserViewModel;
-
-import java.security.spec.KeySpec;
 import java.util.List;
-
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.spec.SecretKeySpec;
 
 public class Menu extends AppCompatActivity {
 

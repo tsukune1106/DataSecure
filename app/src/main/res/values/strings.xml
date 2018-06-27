@@ -6,6 +6,7 @@
     <string name="title_activity_login_options">login_options</string>
     <string name="fingerprint_guide">Please place your fingerprint on the scanner</string>
     <string name="swipe_right">Swipe Right for "\n"Fingerprint Authentication</string>
+    <string name="reminder">● Sometimes might freeze due to security algorithm process</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

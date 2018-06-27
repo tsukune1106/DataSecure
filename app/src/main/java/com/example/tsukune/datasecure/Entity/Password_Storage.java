@@ -2,6 +2,7 @@ package com.example.tsukune.datasecure.Entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity
@@ -17,6 +18,13 @@ public class Password_Storage {
     private String ps_Password;
 
     public Password_Storage(String ps_Name, String ps_Password) {
+        this.ps_Name = ps_Name;
+        this.ps_Password = ps_Password;
+    }
+
+    @Ignore
+    public Password_Storage(int id, String ps_Name, String ps_Password) {
+        this.id = id;
         this.ps_Name = ps_Name;
         this.ps_Password = ps_Password;
     }

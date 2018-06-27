@@ -67,7 +67,7 @@ public class Login_Password extends Fragment {
             loginPassword = editText_Login_Password.getText().toString();
             mainPassword = user.getMainPassword();
                 try {
-                    valid = new CheckPassword(btn_id, inputLayout_login_password, editText_Login_Password, loginPassword, mainPassword).execute().get();
+                    valid = new CheckPassword(btn_id, loginPassword, mainPassword).execute().get();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
@@ -105,16 +105,12 @@ public class Login_Password extends Fragment {
     private class CheckPassword extends AsyncTask<Void, Void, Boolean> {
 
         private int btn_id;
-        private TextInputLayout til;
-        private EditText et;
         private String loginPassword, mainPassword;
         private Dialog_ProgressBar dialog_progressBar;
         private boolean valid = true;
 
-        public CheckPassword(int btn_id, TextInputLayout til, EditText et, String loginPassword, String mainPassword) {
+        public CheckPassword(int btn_id, String loginPassword, String mainPassword) {
             this.btn_id = btn_id;
-            this.til = til;
-            this.et = et;
             this.loginPassword = loginPassword;
             this.mainPassword = mainPassword;
         }

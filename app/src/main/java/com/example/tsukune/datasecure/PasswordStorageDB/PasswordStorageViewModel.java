@@ -26,4 +26,6 @@ public class PasswordStorageViewModel extends AndroidViewModel {
     public void updatePS(Password_Storage ps) { psRepository.updatePS(ps); }
 
     public void deletePS (Password_Storage ps) { psRepository.deletePS(ps); }
+
+    public void deletePSbyID (int id) { psRepository.deletePSbyID(id); }
 }
