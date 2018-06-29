@@ -65,6 +65,8 @@ public class Login_Fingerprint extends Fragment {
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         textView_Login_Username3 = view.findViewById(R.id.textView_Login_Username3);
 
+        notification = view.findViewById(R.id.fingerprint_notification);
+
         userViewModel.getAllUser().observe(this, new Observer<List<User>>() {
             @Override
             public void onChanged(@Nullable List<User> users) {

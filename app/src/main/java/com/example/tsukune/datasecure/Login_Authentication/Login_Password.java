@@ -53,9 +53,6 @@ public class Login_Password extends Fragment {
             public void onChanged(@Nullable List<User> users) {
                 user = users.get(0);
                 textView_Login_Username.setText(user.getUsername());
-                Log.i("Name", "" + user.getUsername());
-                Log.i("Size", "" + users.size());
-
             }
         });
 
@@ -81,25 +78,9 @@ public class Login_Password extends Fragment {
                         inputLayout_login_password.setError(null);
                         startActivity(new Intent(getActivity(), Menu.class));
                 }
-//            getActivity().runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    if(loginPassword.isEmpty() || !BCrypt.checkpw(loginPassword, mainPassword)) {
-//                        inputLayout_login_password.setError("Please enter valid password");
-//                    }
-//                    else {
-//                        editText_Login_Password.setText(null);
-//                        inputLayout_login_password.setError(null);
-//                        startActivity(new Intent(getActivity(), Menu.class));
-//                    }
-//                }
-//            });
             }
         });
         return view;
-    }
-    public void getFileName(){
-
     }
 
     private class CheckPassword extends AsyncTask<Void, Void, Boolean> {

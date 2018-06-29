@@ -60,8 +60,8 @@ public class Edit_User_FS extends Fragment {
             @Override
             public void onChanged(@Nullable List<User> users) {
                 user = users.get(0);
-                old_FS_Password = user.getPasswordStorage();
-                old_fs_encryptionKey = user.getPs_encryptionKey();
+                old_FS_Password = user.getFileStorage();
+                old_fs_encryptionKey = user.getFs_encryptionKey();
             }
         });
 
@@ -69,8 +69,8 @@ public class Edit_User_FS extends Fragment {
                 "\n\u25cf FS Password must contains 6 digits" +
                 "\n\u25cf Confirm FS Password must be the same as FS Password");
 
-        til_EditFSPassword.setHint("PS Password");
-        til_EditConfirmFSPassword.setHint("Confirm PS Password");
+        til_EditFSPassword.setHint("FS Password");
+        til_EditConfirmFSPassword.setHint("Confirm FS Password");
 
         btn_edit_fs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,8 +106,13 @@ public class Edit_User_FS extends Fragment {
 
     public String Edit_FS_EncryptionKey(String old_fs_password, String new_fs_password, String old_fs_encryptionKey) throws Exception {
         Password_Encryption_Algorithm pea = new Password_Encryption_Algorithm();
+        Log.i("old password", old_fs_password);
+        Log.i("old encryptionKey", old_fs_encryptionKey);
         String originalKey = pea.Decrypt(old_fs_password, old_fs_encryptionKey);
+        Log.i("original", originalKey);
         String new_fs_encryptionKey = pea.Encrypt(new_fs_password, originalKey);
+        Log.i("new password", new_fs_password);
+        Log.i("new encryptionKey", new_fs_encryptionKey);
         return new_fs_encryptionKey;
     }
 }

@@ -10,18 +10,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-
 import com.example.tsukune.datasecure.Encryption_Algorithm.Password_Encryption_Algorithm;
 import com.example.tsukune.datasecure.Entity.Password_Storage;
 import com.example.tsukune.datasecure.Entity.User;
 import com.example.tsukune.datasecure.PasswordStorageDB.PasswordStorageViewModel;
 import com.example.tsukune.datasecure.R;
-import com.example.tsukune.datasecure.UserDB.UserRepository;
 import com.example.tsukune.datasecure.UserDB.UserViewModel;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class Password_Storage_Menu extends AppCompatActivity {
 
@@ -60,7 +56,7 @@ public class Password_Storage_Menu extends AppCompatActivity {
                 user = users.get(0);
                 try {
                     encryptionKey = pea.Decrypt(user.getPasswordStorage(), user.getPs_encryptionKey());
-                    Log.i("ps password", encryptionKey);
+//                    Log.i("ps password", encryptionKey);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

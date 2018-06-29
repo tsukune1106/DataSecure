@@ -39,7 +39,7 @@ public class Menu extends AppCompatActivity {
                 ps_password = user.getPasswordStorage();
                 fs_password = user.getFileStorage();
                 ps_encryptionKey = user.getPs_encryptionKey();
-                fs_password = user.getFs_encryptionKey();
+                fs_encryptionKey = user.getFs_encryptionKey();
             }
         });
 
