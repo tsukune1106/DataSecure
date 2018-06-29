@@ -31,7 +31,6 @@ public class PS_List_RV_Adapter extends RecyclerView.Adapter<PS_List_RV_Adapter.
 
     class PSViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tv_ein_PS_Name, tv_ein_PS_Password;
-//        private OnItemClickListener onItemClickListener;
 
         private PSViewHolder(View view) {
             super(view);

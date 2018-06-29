@@ -83,9 +83,9 @@ public class Edit_PS_Menu extends DialogFragment {
                     new_PS_Password = newHashedList.get(1);
                     ps = new Password_Storage(id, new_PS_Name, new_PS_Password);
                     psMenu.Update_PS(ps);
+                    Toast.makeText(getActivity(), "Selected Password Storage Edited!", Toast.LENGTH_LONG).show();
+                    getDialog().dismiss();
                 }
-                Toast.makeText(getActivity(), "Selected Password Storage Edited!", Toast.LENGTH_LONG).show();
-                getDialog().dismiss();
             }
         });
 

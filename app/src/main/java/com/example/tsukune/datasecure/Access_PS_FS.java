@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.tsukune.datasecure.FS_Menu.File_Storage_Menu;
 import com.example.tsukune.datasecure.PS_Menu.Password_Storage_Menu;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -51,12 +54,12 @@ public class Access_PS_FS extends DialogFragment {
             public void onClick(View v) {
 
                 if (btn_id == R.id.btn_FS_Menu) {
-                    if(!BCrypt.checkpw(et_access_ps_fs.getText().toString(), Menu.fs_password)){
+                    if(et_access_ps_fs.getText().toString().isEmpty() || !BCrypt.checkpw(et_access_ps_fs.getText().toString(), Menu.fs_password)){
                         til_access_ps_fs.setError("Invalid Password");
                     }
                     else {
                         getDialog().dismiss();
-//                        startActivity(new Intent(this, ));
+                        startActivity(new Intent(getContext(), File_Storage_Menu.class));
                     }
                 }
                 else if (btn_id == R.id.btn_PS_Menu) {

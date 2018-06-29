@@ -79,16 +79,7 @@ public class Edit_User_Login extends Fragment {
                 InputLayout_EditPassword.setError(null);
                 InputLayout_EditConfirmPassword.setError(null);
 
-                if (Input_EditUsername.getText().toString().isEmpty()){
-                    InputLayout_EditUsername.setError("Invalid Field!");
-                }
-                if(!isValidPassword(Input_EditPassword.getText().toString()) && Input_EditPassword.getText().toString().isEmpty()) {
-                    InputLayout_EditPassword.setError("Invalid Field!");
-                }
-                else if (!Input_EditConfirmPassword.getText().toString().equals(Input_EditConfirmPassword.getText().toString())) {
-                    InputLayout_EditConfirmPassword.setError("Invalid Field!");
-                }
-                else {
+                if(Validate()) {
                     updateUserLogin = new UserRepository.UpdateUserLogin(user.getId(), Input_EditUsername.getText().toString(), Input_EditConfirmPassword.getText().toString());
                     userViewModel.updateUserLogin(updateUserLogin);
                     Toast.makeText(getActivity(), "Edit Successful!", Toast.LENGTH_LONG).show();
@@ -106,5 +97,20 @@ public class Edit_User_Login extends Fragment {
         return pattern.matcher(password).matches();
     }
 
-
+    private boolean Validate(){
+        boolean check = true;
+        if (Input_EditUsername.getText().toString().isEmpty()) {
+            InputLayout_EditUsername.setError("Invalid Field!");
+            check = false;
+        }
+        if (!isValidPassword(Input_EditPassword.getText().toString()) || Input_EditPassword.getText().toString().isEmpty()) {
+            InputLayout_EditPassword.setError("Invalid Field!");
+            check = false;
+        }
+        if (!Input_EditConfirmPassword.getText().toString().equals(Input_EditPassword.getText().toString())) {
+            InputLayout_EditConfirmPassword.setError("Invalid Field!");
+            check = false;
+        }
+        return check;
+    }
 }
