@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import com.example.tsukune.datasecure.EditUser.Settings;
 import com.example.tsukune.datasecure.Entity.User;
+import com.example.tsukune.datasecure.Login_Authentication.Login_Options;
 import com.example.tsukune.datasecure.UserDB.UserViewModel;
 import java.util.List;
 
@@ -71,5 +72,13 @@ public class Menu extends AppCompatActivity {
         b.putInt("ButtonID", btn_id);
         dialog_access_ps_fs.setArguments(b);
         dialog_access_ps_fs.show(getFragmentManager(), "Access_PS_FS");
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, Login_Options.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        super.onBackPressed();
     }
 }

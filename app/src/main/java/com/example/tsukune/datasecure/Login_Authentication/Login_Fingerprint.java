@@ -59,6 +59,7 @@ public class Login_Fingerprint extends Fragment {
     private FingerprintManager fingerprintManager;
     private KeyguardManager keyguardManager;
     private FingerprintHandler fingerprintHandler;
+    private FingerprintManager.CryptoObject cryptoObject;
 
     //KeyStore
     private KeyStore keyStore;
@@ -83,6 +84,8 @@ public class Login_Fingerprint extends Fragment {
             }
         });
 
+        notification.setVisibility(View.VISIBLE);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             fingerprintManager = (FingerprintManager) getActivity().getSystemService(FINGERPRINT_SERVICE);
             keyguardManager = (KeyguardManager) getActivity().getSystemService(KEYGUARD_SERVICE);
@@ -96,17 +99,18 @@ public class Login_Fingerprint extends Fragment {
                         REQUEST_CODE_USE_FINGERPRINT_PERMISSION);
             }
             else if (!keyguardManager.isKeyguardSecure()) {
-                notification.setText("Please enable lockscreen security in your device's settings");
+                notification.setText("Please enable lock screen security in your device's settings");
             }
             else if (!fingerprintManager.hasEnrolledFingerprints()) {
                 notification.setText("No fingerprint configured. Please register at least one fingerprint in your device's Settings");
             }
             else {
+                notification.setVisibility(View.GONE);
                 GenerateKey();
 
                 if (CipherInit()) {
 
-                    FingerprintManager.CryptoObject cryptoObject = new FingerprintManager.CryptoObject(cipher);
+                    cryptoObject = new FingerprintManager.CryptoObject(cipher);
                     fingerprintHandler = new FingerprintHandler(getActivity());
                     fingerprintHandler.StartAuth(fingerprintManager, cryptoObject);
                 }

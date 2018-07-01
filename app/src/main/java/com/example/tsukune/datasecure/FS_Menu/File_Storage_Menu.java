@@ -164,27 +164,25 @@ public class File_Storage_Menu extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if(requestCode == Access_File_Function.REQUEST_CODE_WRITE_EXTERNAL_STORAGE_PERMISSION) {
-            int grantResultsLength = grantResults.length;
-            if (grantResultsLength > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Permission Granted to add file!", Toast.LENGTH_LONG).show();
                 aff = new Access_File_Function();
                 aff.Check_Decrypted_Directory_Exist();
             }
-            else {
+            else if (grantResults[0] == PackageManager.PERMISSION_DENIED){
                 Toast.makeText(this, "Permission Denied to add file!", Toast.LENGTH_LONG).show();
-                finish();
+                this.finish();
             }
         }
         if (requestCode == Access_File_Function.REQUEST_CODE_READ_EXTERNAL_STORAGE_PERMISSION) {
-            int grantResultsLength = grantResults.length;
-            if (grantResultsLength > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Permission Granted to read file!", Toast.LENGTH_LONG).show();
                 aff = new Access_File_Function();
                 aff.Check_Decrypted_Directory_Exist();
             }
-            else {
+            else if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
                 Toast.makeText(this, "Permission Denied to read file!", Toast.LENGTH_LONG).show();
-                finish();
+                this.finish();
             }
         }
     }

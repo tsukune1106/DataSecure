@@ -10,6 +10,7 @@ import android.os.CancellationSignal;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.tsukune.datasecure.Menu;
 import com.example.tsukune.datasecure.R;
@@ -17,7 +18,7 @@ import com.example.tsukune.datasecure.R;
 public class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
 
     private CancellationSignal cancellationSignal;
-    private Context context;
+    private static Context context;
     Login_Fingerprint lf = new Login_Fingerprint();
 
     public FingerprintHandler (Context mContext) {
@@ -28,7 +29,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
         cancellationSignal = new CancellationSignal();
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
-            return;
+            lf.getNotification("Permission is not granted to use fingerprint authentication", false, context);
         }
         fm.authenticate(cryptoObject, cancellationSignal, 0, this, null);
     }
@@ -45,17 +46,8 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     @Override
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
-        lf.getNotification("Access Granted!", true, context);
+        Toast.makeText(context, "Access Granted!", Toast.LENGTH_LONG).show();
+        context.startActivity(new Intent(context, Menu.class));
 
-        final ImageView imageView = ((Activity)context).findViewById(R.id.fingerprintImage);
-        imageView.setImageResource(R.mipmap.done_fingerprint_authentication);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                imageView.setImageResource(R.mipmap.fingerprint_icon);
-                context.startActivity(new Intent(context, Menu.class));
-            }
-        }, 3000);
     }
 }
